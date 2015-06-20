@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+	      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+	      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 代码生成运行命令：mvn org.mybatis.generator:mybatis-generator-maven-plugin:1.3.1:generate -->
+<generatorConfiguration>
+	<!-- 配置mysql驱动的完整路径 -->
+	<classPathEntry
+		location="D:\J2EE\maven\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /> <!-- 是否禁止注释 -->
+		</commentGenerator>
+
+		<!-- 1、数据库配置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/customermanager?generateSimpleParameterMetadata=true"
+			userId="root" password="mysql">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 路径的包必须事先创建 -->
+		<!-- 2、generate Model -->
+		<javaModelGenerator targetPackage="com.yejq.core.model"
+			targetProject="F:\360\workspace\customermanager\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 3、generate xml -->
+		<sqlMapGenerator targetPackage="mybatis.mapper"
+			targetProject="F:\360\workspace\customermanager\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 4、generate Mapper -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.yejq.core.mapper"
+			targetProject="F:\360\workspace\customermanager\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 5、要使用哪些表，tableName：表名，domainObjectName：类名 -->
+		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
+			tableName="leader" domainObjectName="Leader"></table>
+		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
+			tableName="department" domainObjectName="Department"></table>
+		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
+			tableName="user_spec" domainObjectName="UserSpec"></table>
+		
+	</context>
+</generatorConfiguration>
