@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        销售规格
+    </div>
+    <div class="panel-body">
+        <div class="form-group"  ng-show="specs.length > 0">
+            <label class="col-sm-4 control-label">商品类型:</label>
+            <div class="col-sm-20">
+                <p class="form-control-static" ng-if="product.skuType == 0">普通商品</p>
+                <p class="form-control-static" ng-if="product.skuType == 1">多规格商品，&nbsp;目前有<b>{{product.skus.length}}</b>个货品。</p>
+            </div>
+        </div>
+        <!-- /.form-group -->
+
+        <!--普通商品-->
+        <div ng-include="templates.specSection4SingleSku4EditMode"/>
+        <!--多规格商品-->
+        <div ng-include="templates.specSection4MultiSku4EditMode"/>
+
+    </div>
+    <!-- /.panel-body -->
+
+</div>
+<!-- /.panel -->

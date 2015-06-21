@@ -1,0 +1,243 @@
+<div id="refundListPage">
+    <div class="row functionBar">
+        <ol class="breadcrumb">
+            当前位置：
+            <li><a ui-sref="main.refund">售后</a></li>
+            <li class="active">退换货列表</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row" ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-lg-24">
+                        <form class="form-horizontal" role="form" id="refundSearchForm"
+                              name="refundSearchForm">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="orderReturnNo" class="col-sm-8 control-label">退换货编号:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="orderReturnNo" ng-model="query.orderReturnNo" name="orderReturnNo" ng-type="text"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="orderNo" class="col-sm-8 control-label">订单编号:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="orderNo" data-ng-model="query.orderNo" name="orderNo"
+                                                   ng-type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <label class="col-sm-6 control-label">
+                                            申请时间:
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <div class="dropdown">
+                                                <a class="input-toggle" id="dropdown1" role="button"
+                                                   data-toggle="dropdown" data-target="#" href="">
+                                                    <div class="input-group">
+                                                        <input ng-readonly="true" id="createTimeLEStr" type="text" name="createTimeLEStr"
+                                                               class="form-control"
+                                                               data-ng-model="query.createTimeLEStr">
+        										<span class="input-group-addon">
+        											<i class="glyphicon glyphicon-calendar"></i>
+        										</span>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker data-ng-model="query.createTimeLEStr"
+                                                                    data-datetimepicker-config="{dropdownSelector: '#dropdown1',minView:'day'}"/>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="dropdown">
+                                                <a class="input-toggle" id="dropdown2" role="button"
+                                                   data-toggle="dropdown" data-target="#" href="">
+                                                    <div class="input-group">
+                                                        <input ng-readonly="true" id="createTimeGEStr" type="text" name="createTimeGEStr"
+                                                               class="form-control"
+                                                               data-ng-model="query.createTimeGEStr">
+        										<span class="input-group-addon">
+        											<i class="glyphicon glyphicon-calendar"></i>
+        										</span>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker data-ng-model="query.createTimeGEStr"
+                                                                    data-datetimepicker-config="{dropdownSelector: '#dropdown2',minView:'day'}"/>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+                            </div>
+                            <!--end of .row -->
+
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="skuName" class="col-sm-8 control-label">商品名称:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="skuName" ng-model="query.skuName" name="skuName" ng-type="text"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="skuNumber" class="col-sm-8 control-label">SKU:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="skuNumber" ng-model="query.skuNumber" name="skuNumber"
+                                                   ng-type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <button id="refundSearchBtn"
+                                                name="refundSearchBtn"type="button"
+                                                class="btn btn-primary btn-block"
+                                                ng-click="search()">
+                                            <span class="glyphicon glyphicon-search"></span> 搜 索
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- end of .col-sm-5 -->
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <button type="reset"
+                                                class="btn btn-default"
+                                                ng-click="resetForm();">重置</button>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-10">
+                                    <div class="form-group" ng-class="{'has-error':(refundSearchForm.totalAmountS.$invalid && !refundSearchForm.totalAmountS.$pristine)
+                                    || (refundSearchForm.totalAmountE.$invalid && !refundSearchForm.totalAmountE.$pristine)}">
+                                        <label for="totalAmountS" class="col-sm-6 control-label">订单金额:</label>
+                                
+                                        <div class="col-sm-8">
+                                            <input id="totalAmountS" ng-model="query.totalAmountS" name="totalAmountS" type="text" class="form-control"
+                                                   validate-float>
+                                            <div class="help-block"
+                                                 ng-show="refundSearchForm.totalAmountS.$dirty && refundSearchForm.totalAmountS.$invalid">
+                                                 <span ng-show="refundSearchForm.totalAmountS.$error.float">请输入有效的金额（最多两位小数）</span>
+                                
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label for="totalAmountE" class="control-label">至</label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input id="totalAmountE" ng-model="query.totalAmountE" name="totalAmountE" type="text" class="form-control"
+                                                   validate-float>
+                                            <div class="help-block"
+                                                 ng-show="refundSearchForm.totalAmountE.$dirty && refundSearchForm.totalAmountE.$invalid">
+                                                <span ng-show="refundSearchForm.totalAmountE.$error.float">请输入有效的金额（最多两位小数）</span>
+                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    end of .form-group
+                                </div> -->
+                            </div>
+                            <!--end of .row -->
+
+
+                            <!-- end of .row -->
+
+                        </form>
+                    </div>
+                    <!-- end of .col-lg-24 -->
+                </div>
+                <!-- end of .row (nested)-->
+            </div>
+            <!-- end of .panel-body -->
+        </div>
+        <!-- end of .panel -->
+    </div>
+    <!-- end of .row (first)-->
+    <div class="row list-with-tabs">
+
+        <ul class="nav nav-pills nav-justified " role="tablist">
+            <li role="presentation" style="width:150px;" ng-class="{active:currentTab==1}">
+                <a href="javascript:void(0)" ng-click="returnGoods();">
+                    退货
+                </a>
+            </li>
+            <li role="presentation" style="width:150px;" ng-class="{active:currentTab==2}">
+                <a href="javascript:void(0)" ng-click="exchangeGoods();">
+                    换货
+                </a>
+            </li>
+            <li role="presentation" style="width:150px;" ng-class="{active:currentTab==3}">
+                <a href="javascript:void(0)" ng-click="refund();">
+                    退款
+                </a>
+            </li>
+            <li role="presentation" style="width:150px;" ng-class="{active:currentTab==4}">
+                <a href="javascript:void(0)" ng-click="supplyAgain();">
+                    补发
+                </a>
+            </li>
+        </ul>
+        <div class="panel panel-default panel-list-page">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12 pull-right text-right">
+                        <!-- pagination -->
+                        <div ng-table-pagination="refundTableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- table -->
+                    <div ng-include="listTemplate"></div>
+                </div>
+
+                <div class="loading" ng-if="!$loaded"></div>
+                <!-- /.loading -->
+            </div>
+            <div class="panel-footer">
+                <!-- pagination -->
+                <div ng-table-pagination="refundTableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+        <!-- end of .panel panel-default -->
+    </div>
+    <!-- end of .row -->
+</div>
+
+<!-- 售后详细页面-->
+<div id="refundDetailPage">
+</div>
+

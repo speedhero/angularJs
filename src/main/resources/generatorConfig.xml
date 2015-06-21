@@ -46,11 +46,13 @@
 
 		<!-- 5、要使用哪些表，tableName：表名，domainObjectName：类名 -->
 		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
-			tableName="leader" domainObjectName="Leader"></table>
+			tableName="customer" domainObjectName="Customer"></table>
 		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
-			tableName="department" domainObjectName="Department"></table>
+			tableName="customer_order" domainObjectName="CustomerOrder"></table>
 		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
-			tableName="user_spec" domainObjectName="UserSpec"></table>
+			tableName="order" domainObjectName="Order"></table>
+		<table schema="" enableDeleteByPrimaryKey="false" enableDeleteByExample="false" enableCountByExample="false" enableSelectByExample="false" enableUpdateByExample="false"
+			tableName="state" domainObjectName="State"></table>
 		
 	</context>
 </generatorConfiguration>

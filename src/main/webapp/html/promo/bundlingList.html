@@ -1,0 +1,193 @@
+<!-- 搭配组合列表页面-->
+<div id="listPage">
+    <div class="row functionBar">
+        <ol class="breadcrumb">当前位置：
+            <li class="active">'飞'常优惠列表</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row"  ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="searchForm" name="searchForm">
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">搭配名称:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="name" ng-model="query.name" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">状态:</label>
+                                <div class="col-sm-16">
+                                    <select class="form-control" ng-model="query.status" name="status" ng-options="status.value as status.label for status in _statuses">
+                                        <option value="">--- 请选择 ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">商品名称:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="productName" ng-model="query.productName" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">SKU编号:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="skuCode" ng-model="query.skuCode" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-4"></div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" ng-click="search()" id="searchBtn"
+                                        ng-disabled="!searchForm.$valid"><span class="glyphicon glyphicon-search"></span> 查  询</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <button class="btn btn-default" ng-click="resetSearch()">重置</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </form>
+
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+    <div class="row">
+        <div class="alert alert-info">
+            <p>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                重要提示：每个商品只支持参与创建一个搭配，当某个商品已参与创建某个搭配后，不能再参与其他搭配的创建!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default panel-list-page">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- button bar -->
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <a href="" ng-click="upsertDetail()" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-plus"></span> 新建搭配</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pull-right text-right">
+                        <div ng-table-pagination="tableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <!-- data table -->
+                <div class="row">
+                    <div class="">
+                        <table ng-table="tableParams" class="table table-info table-condensed table-custom table-custom-two bundlingList">
+                            <tbody>
+                            <tr ng-repeat-start="o in $data" class="first bg-info">
+                                <td colspan="3">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <strong>搭配名称：</strong>{{o.name}}
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <strong>创建时间：</strong>{{o.createTime | date:'yyyy-MM-dd HH:mm'}}
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <strong >状态：</strong>
+                                            <span>{{o.status | bundlingStatus}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end class="second">
+                                <td style="border-right: 1px dotted #ddd;">
+                                    <div class="row">
+                                        <div class="col-sm-1 product-box" ng-repeat-start="item in o.skus" ng-if="!$first">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
+                                        <div class="col-sm-4 product-box" ng-repeat-end>
+                                            <img ng-src="{{getProdImageUrl(item.image)}}"/>
+                                            <div class="detail">
+                                                <div class="name">{{item.productName}}</div>
+                                                <ul class="list-unstyled">
+                                                    <li><b>飞飞价:</b> {{item.price | currency:' &yen;'}}</li>
+                                                    <li><b>搭配价:</b> {{item.promoPrice | currency:' &yen;'}}</li>
+                                                    <li class="text-danger" ng-if="item.status == 2"><i class="fa fa-warning"></i><b>此商品已下架</b></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td  style="width:170px;vertical-align:middle">
+                                    <div class="btn-group-vertical btn-block">
+                                        <a class="btn btn-default" ng-if="canEdit(o)" ng-click="upsertDetail(o)">修改</a>
+                                        <a class="btn btn-default" ng-if="canShelve(o)" ng-click="shelve(o)">上架</a>
+                                        <a class="btn btn-default" ng-if="canOffShelve(o)" ng-click="offShelve(o)">下架</a>
+                                        <a class="btn btn-default" ng-if="canRemove(o)" ng-click="remove(o)">删除</a>
+                                        <!--<a class="btn btn-default" ng-click="viewSkuItems(o)">查看套餐</a>-->
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="loading" ng-if="!$loaded"></div>
+                    <!-- /.loading -->
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <!-- pagination -->
+                <div ng-table-pagination="tableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详细页面-->
+<div id="detailPage" style="display: none;"></div>
+
+

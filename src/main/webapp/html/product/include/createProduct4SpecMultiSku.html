@@ -1,0 +1,386 @@
+<div class="row row-custom" ng-show="product.skuType == 1">
+    <br/>
+    <div class="bg-info" ng-include="templates.specSection4MultiSku4Specs"/>
+
+    <div class="sku-table-container">
+        <table ng-style="getMultiSkuTableStyle()" class="table table-bordered table-custom">
+            <thead>
+            <tr>
+                <th width="50px">默认</th>
+                <th width="80px">序号</th>
+                <th width="100px" ng-repeat="spec in specs | filter:isSpecChecked">
+                    {{spec.name}}
+                </th>
+                <th width="130px">操作</th>
+                <th width="230px">&lowast; 市场价(元)</th>
+                <th width="230px">&lowast; 飞飞价(元)</th>
+                <th width="230px">&lowast; 库存(件)</th>
+                <th width="400px">&lowast; 长宽高(cm*3)</th>
+                <th width="230px">&lowast; 重量(kg)</th>
+                <th width="230px">条形码</th>
+                <th width="230px">商品型号</th>
+                <th width="230px">商家编码</th>
+                <th width="100px" ng-repeat="spec in specs | filter:isSpecChecked">
+                    {{spec.name}}
+                </th>
+
+            </tr>
+            </thead>
+            <tbody >
+            <tr ng-repeat="sku in product.skus" ng-form="skuForm">
+                <td>
+                    <label>
+                        <input type="radio" name="isDefaultSku" ng-checked="$first" ng-click="setDefaultSku($event,$index)"/>
+                    </label>
+                </td>
+                <td>{{$index+1}}</td>
+                <!-- ===规格值=== -->
+                <td ng-repeat="spec in specs | filter:isSpecChecked">
+                    {{getOptionRealName(sku.specs[spec.id+''])}}
+                </td>
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <a tabindex="10" class="btn btn-danger" ng-click="deleteSku($index)">
+                                <span class="glyphicon glyphicon-remove"></span>&nbsp; 删除
+                            </a>
+                            <!-- /.btn-group-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===市场价=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.marketPrices.$dirty || hasCommit) && skuForm.marketPrices.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;"  type="text" ng-model="sku.marketPrice" name="marketPrices"  class="form-control" placeholder="市场价"
+                                           validate-positive-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('marketPrice',sku.marketPrice)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('marketPrice',sku.marketPrice)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                     ng-show="(skuForm.marketPrices.$dirty || hasCommit) && skuForm.marketPrices.$invalid">
+                                <span ng-show="skuForm.marketPrices.$error.required">
+                                    必填
+                                </span>
+                                <span ng-show="skuForm.marketPrices.$error.float">
+                                    请输入大于0的有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===库存=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group"  ng-class="{ 'has-error': (skuForm.prices.$dirty || hasCommit) && skuForm.prices.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;"  type="text" ng-model="sku.price" name="prices"  class="form-control" placeholder="飞飞价"
+                                           validate-positive-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('price',sku.price)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('price',sku.price)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.prices.$dirty || hasCommit) && skuForm.prices.$invalid">
+                                <span ng-show="skuForm.prices.$error.required">
+                                    必填
+                                </span>
+                                <span ng-show="skuForm.prices.$error.float">
+                                    请输入大于0的有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===库存=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.quantityOnHands.$dirty || hasCommit) && skuForm.quantityOnHands.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;"  type="text" ng-model="sku.quantityOnHand" name="quantityOnHands"  class="form-control" placeholder="库存"
+                                           validate-integer ng-required="product.skuType == 1"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('quantityOnHand',sku.quantityOnHand)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('quantityOnHand',sku.quantityOnHand)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.quantityOnHands.$dirty || hasCommit) && skuForm.quantityOnHands.$invalid">
+                                <span ng-show="skuForm.quantityOnHands.$error.required">
+                                    必填
+                                </span>
+                                <span ng-show="skuForm.quantityOnHands.$error.integer">
+                                    请输入有效的整数
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===长宽高=== -->
+                <td>
+                    <div class="form-inline form-inline-multi">
+                        <div class="form-group" ng-class="{ 'has-error': ((skuForm.lengths.$dirty || hasCommit) && skuForm.lengths.$invalid)||
+                                                                      ((skuForm.widths.$dirty || hasCommit) && skuForm.widths.$invalid)||
+                                                                      ((skuForm.heights.$dirty || hasCommit) && skuForm.heights.$invalid)}">
+                            <div>
+                                <label>
+                                    <input style="width:100px;"  type="text" ng-model="sku.length" name="lengths"  class="form-control" placeholder="长"
+                                           validate-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <label>
+                                    <input style="width:100px;"  type="text" ng-model="sku.width" name="widths"  class="form-control" placeholder="宽"
+                                           validate-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <label>
+                                    <input style="width:100px;"  type="text" ng-model="sku.height" name="heights"  class="form-control" placeholder="高"
+                                           validate-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)"
+                                               ng-click="applyToAllSku('length',sku.length);
+                                            applyToAllSku('width',sku.width);
+                                            applyToAllSku('height',sku.height);">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)"
+                                               ng-click="applyToNotInputSku('length',sku.length);
+                                           applyToNotInputSku('width',sku.width);
+                                           applyToNotInputSku('height',sku.height);">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.lengths.$dirty || hasCommit) && skuForm.lengths.$invalid">
+                                <span ng-show="skuForm.lengths.$error.required">
+                                    长度必填
+                                </span>
+                                <span ng-show="skuForm.lengths.$error.float">
+                                    请为长度输入有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                            <div class="help-block"
+                                 ng-show="(skuForm.widths.$dirty || hasCommit) && skuForm.widths.$invalid">
+                                <span ng-show="skuForm.widths.$error.required">
+                                    宽度必填
+                                </span>
+                                <span ng-show="skuForm.widths.$error.float">
+                                    请为宽度输入有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                            <div class="help-block"
+                                 ng-show="(skuForm.heights.$dirty || hasCommit) && skuForm.heights.$invalid">
+                                <span ng-show="skuForm.heights.$error.required">
+                                    高度必填
+                                </span>
+                                <span ng-show="skuForm.heights.$error.float">
+                                    请为高度输入有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===重量=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.weights.$dirty || hasCommit) && skuForm.weights.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;"  type="text" ng-model="sku.weight" name="weights"  class="form-control"  placeholder="重量"
+                                           validate-float ng-required="product.skuType == 1"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('weight',sku.weight)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('weight',sku.weight)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.weights.$dirty || hasCommit) && skuForm.weights.$invalid">
+                                <span ng-show="skuForm.weights.$error.required">
+                                    必填
+                                </span>
+                                <span ng-show="skuForm.weights.$error.float">
+                                    请输入有效的正浮点数(最多两位小数)
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+
+                <!-- ===条形码=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.barCodes.$dirty || hasCommit) && skuForm.barCodes.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;"  type="text" ng-model="sku.barCode" name="barCodes"  class="form-control"  placeholder="条形码"
+                                           ng-maxlength="30"
+                                           />
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('barCode',sku.barCode)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('barCode',sku.barCode)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.barCodes.$dirty || hasCommit) && skuForm.barCodes.$invalid">
+                                <span ng-show="skuForm.barCodes.$error.maxlength">
+                                    条形码不能超过30个字符
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===型号=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.models.$dirty || hasCommit) && skuForm.models.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;" type="text" ng-model="sku.model" name="models"  class="form-control" placeholder="商品型号"
+                                           ng-maxlength="30"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('model',sku.model)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('model',sku.model)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.models.$dirty || hasCommit) && skuForm.models.$invalid">
+                                <span ng-show="skuForm.models.$error.maxlength">
+                                    型号不能超过30个字符
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===商家编码=== -->
+                <td>
+                    <div class="form-inline">
+                        <div class="form-group" ng-class="{ 'has-error': (skuForm.mftProductCodes.$dirty || hasCommit) && skuForm.mftProductCodes.$invalid }">
+                            <div>
+                                <label>
+                                    <input style="width:150px;" type="text" ng-model="sku.mftProductCode" name="mftProductCodes"  class="form-control" placeholder="商家编码"
+                                           ng-maxlength="30"/>
+                                </label>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" ng-click="applyToAllSku('mftProductCode',sku.mftProductCode)">应用到所有规格</a></li>
+                                        <li><a href="javascript:void(0)" ng-click="applyToNotInputSku('mftProductCode',sku.mftProductCode)">应用到未填规格</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.btn-group-->
+                            </div>
+                            <div class="help-block"
+                                 ng-show="(skuForm.mftProductCodes.$dirty || hasCommit) && skuForm.mftProductCodes.$invalid">
+                                <span ng-show="skuForm.mftProductCodes.$error.maxlength">
+                                    商家编码不能超过30个字符
+                                </span>
+                            </div>
+                            <!-- /.help-block-->
+                        </div>
+                        <!-- /.form-group-->
+                    </div>
+                    <!-- /.form-inline -->
+                </td>
+
+                <!-- ===规格值=== -->
+                <td ng-repeat="spec in specs | filter:isSpecChecked">
+                    {{getOptionRealName(sku.specs[spec.id+''])}}
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <br/>
+        <br/>
+    </div>
+
+</div>

@@ -8,11 +8,23 @@
         </encoder>
     </appender>
     <appender name="ROLLFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${catalina.base}/logs/custom.log</file>
+        <file>${catalina.base}/logs/app.log</file>
         <Encoding>UTF-8</Encoding>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>
-                ${catalina.base}/logs/framework.%d{yyyy-MM-dd}.log
+                ${catalina.base}/logs/app.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %level  %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="SQLFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/logs/sql.log</file>
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>
+                ${catalina.base}/logs/sql.%d{yyyy-MM-dd}.log
             </FileNamePattern>
         </rollingPolicy>
         <encoder>
@@ -34,4 +46,7 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="ROLLFILE" />
     </root>
+    <logger name="com.yejq.interceptor.MybatisInterceptor" level="info">
+        <appender-ref ref="SQLFILE" />
+    </logger>
 </configuration>

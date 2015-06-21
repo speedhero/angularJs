@@ -1,0 +1,68 @@
+<div class="panel panel-default panel-list-page">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-7">
+                <!-- button bar -->
+                <div class="form-group" style="margin-bottom: 0px;" ng-if="multi">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-checked="selectedItems4All.length != 0 && selectedItems.length == selectedItems4All.length"
+                               ng-click="toggleSelectionAll(selectedItems, selectedItems4All)"> 全选
+                    </label>
+                    <a href="" tabindex="10"  id="multiShelveBtn" class="btn btn-default navbar-btn" ng-click="addMultiSku()">添加多个</a>
+                </div>
+            </div>
+            <div class="col-sm-17 pagination-box pull-right text-right">
+                <div ng-table-pagination="productTableParams" template-url="$templates.paginationShort"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-body">
+        <!-- data table -->
+        <div class="row">
+            <div class="">
+                <table ng-table="productTableParams" class="table-info table-condensed table-hover table-striped table table-custom">
+                    <tbody>
+                    <tr ng-repeat="sku in $data" ng-class="{'active':isContainSku(sku)}">
+                        <td width="2%" data-title="'#'">
+                            <span  ng-if="multi">
+                                <input type="checkbox" ng-checked="selectedItems.indexOf(sku.id) > -1" ng-if="!isContainSku(sku)"
+                                       ng-click="toggleSelection(selectedItems, sku.id)" ng-init="selectedItems4All.push(sku.id)" />
+                            </span>
+                        </td>
+                        <td width="10%"  data-title="'图片'"  >
+                            <img ng-src="{{getProdImageUrl(sku.image)}}"/>
+                        </td>
+                        <td width=""  data-title="'商品'" sortable="'productName'" style="height:141px;">
+                            <div style="position:relative;">
+                                <b class="name">{{sku.productName}}</b>
+                                <ul class="list-unstyled">
+                                    <li>SKU:  {{sku.skuCode}}</li>
+                                    <li>型号: {{sku.model}}</li>
+                                    <li>品牌: {{sku.brand}}</li>
+                                    <li>
+                                        飞飞价: {{ sku.price | currency:' &yen;' }}   &nbsp;&nbsp;&nbsp;&nbsp;库存: {{ sku.quantityOnHand }}
+                                    </li>
+                                </ul>
+                                <div class="select-btn">
+                                        <span  ng-if="multi">
+                                            <a class="btn btn-default" ng-click="addSingleSku(sku)" ng-if="!isContainSku(sku)">
+                                                <i class="fa fa-plus-circle"></i> 添加 ->
+                                            </a>
+                                            <span ng-if="isContainSku(sku)"><i class="fa fa-check"></i> 已添加</span>
+                                        </span>
+                                        <span  ng-if="!multi">
+                                            <a class="btn btn-primary" ng-click="selectSku(sku)"><i class="fa fa-check"></i> 选 择</a>
+                                        </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--/.panel-->

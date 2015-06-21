@@ -1,0 +1,109 @@
+<div class="form-group">
+    <label for="productName" class="col-sm-4 control-label">类目:</label>
+
+    <div class="col-sm-20">
+        <p class="form-control-static">{{category.name}}</p>
+    </div>
+</div>
+<!-- /.form-group -->
+
+<div class="form-group">
+    <label for="productName" class="col-sm-4 control-label">品牌:</label>
+
+    <div class="col-sm-20">
+        <p class="form-control-static">{{brand.name}}</p>
+    </div>
+</div>
+<!-- /.form-group -->
+
+<div class="form-group" ng-class="{ 'has-error': (basicForm.productName.$dirty || hasCommit) && basicForm.productName.$invalid }">
+    <label for="productName" class="col-sm-4 control-label">&lowast; 商品名称:</label>
+
+    <div class="col-sm-20">
+        <input class="form-control" name="productName" ng-model="product.productName"
+               placeholder="请输入商品名称"
+               ng-maxlength="25" required />
+
+        <div class="help-block"
+             ng-show="(basicForm.productName.$dirty || hasCommit) && basicForm.productName.$invalid">
+            <span ng-show="basicForm.productName.$error.required">
+                商品名称必填
+            </span>
+            <span ng-show="basicForm.productName.$error.maxlength">
+                商品名称不能超过25个字符
+            </span>
+        </div>
+
+        <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> 商品名称组成为“商品品牌名+商品标题”,例如'尊阁 简约欧式吊灯',不能超过25个字符。</div>
+    </div>
+</div>
+<!-- /.form-group -->
+
+<div class="form-group" ng-class="{ 'has-error': (basicForm.feature.$dirty || hasCommit) && basicForm.feature.$invalid }">
+    <label for="productName" class="col-sm-4 control-label">&lowast; 商品特色:</label>
+
+    <div class="col-sm-20">
+        <input class="form-control" name="feature" ng-model="product.feature" placeholder="请输入商品特色"
+               ng-maxlength="30" required />
+
+        <div class="help-block"
+             ng-show="(basicForm.feature.$dirty || hasCommit) && basicForm.feature.$invalid">
+            <span ng-show="basicForm.feature.$error.required">
+                商品特色必填
+            </span>
+            <span ng-show="basicForm.feature.$error.maxlength">
+                商品特色不能超过30个字符
+            </span>
+        </div>
+
+        <div class="alert alert-info">
+            <span class="glyphicon glyphicon-info-sign"></span>商品特色,例如'美式乡村复古全铜',不能超过30个字符。
+            <br/>飞飞商城中展示的商品标题组成：商品品牌名+商品名称+商品规格+商品特色（+商品型号）
+        </div>
+    </div>
+</div>
+<!-- /.form-group -->
+
+<div class="form-group" ng-class="{ 'has-error': (basicForm.subheading.$dirty || hasCommit) && basicForm.subheading.$invalid }">
+    <label for="subheading" class="col-sm-4 control-label">商品副标题:</label>
+
+    <div class="col-sm-20">
+        <input class="form-control" name="subheading" ng-model="product.subheading"
+               placeholder="请输入商品副标题"
+               ng-maxlength="40"  />
+
+        <div class="help-block"
+             ng-show="(basicForm.subheading.$dirty || hasCommit) && basicForm.subheading.$invalid">
+            <span ng-show="basicForm.subheading.$error.maxlength">
+                商品副标题不能超过40个字符
+            </span>
+        </div>
+
+        <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>商品副标题,例如'真正的纯铜，够分量',不能超过40个字符。</div>
+    </div>
+</div>
+<!-- /.form-group -->
+
+<div class="form-group" ng-class="{ 'has-error': (basicForm.keywords.$dirty || hasCommit) && basicForm.keywords.$invalid }">
+    <label for="keywords" class="col-sm-4 control-label">&lowast; 商品关键词:</label>
+    <div class="col-sm-20">
+        <input class="form-control" name="keywords" ng-model="product.keywords"
+               placeholder="请输入商品关键词"
+               ng-maxlength="100" required />
+
+        <div class="help-block"
+             ng-show="(basicForm.keywords.$dirty || hasCommit) && basicForm.keywords.$invalid">
+            <span ng-show="basicForm.keywords.$error.required">
+                商品关键词必填
+            </span>
+            <span ng-show="basicForm.keywords.$error.maxlength">
+                商品关键词不能超过100个字符
+            </span>
+        </div>
+
+        <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>商品关键词,例如'灯,吊灯,欧式,简约,全铜',关键字有助于消费者快速搜索到该商品,不能超过100个字符。</div>
+    </div>
+</div>
+<!-- /.form-group -->
+
+

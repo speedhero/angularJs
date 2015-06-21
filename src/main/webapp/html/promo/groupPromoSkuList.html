@@ -1,0 +1,207 @@
+<!-- 推荐组合sku列表页面-->
+<div id="listPage">
+    <div class="row functionBar">
+        <ol class="breadcrumb">当前位置：
+            <li class="active">飞荐不可</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row"  ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="searchForm" name="searchForm">
+
+                    <div class="row">
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">商品分类:</label>
+                                <div class="col-sm-16">
+                                    <select class="form-control" name="categoryId" ng-model="query.categoryId" ng-options="category.id as category.name for category in supplierCategories">
+                                        <option value="">--请选择--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">商品名称:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="productName" ng-model="query.productName" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">型号:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="model" ng-model="query.model" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">推荐状态:</label>
+                                <div class="col-sm-16">
+                                    <select class="form-control" ng-model="query.status" name="status" ng-options="status.value as status.label for status in _statuses">
+                                        <option value="">--- 请选择 ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">SKU编号:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="skuCode" ng-model="query.skuCode" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-8 control-label">商家编码:</label>
+                                <div class="col-sm-16">
+                                    <input class="form-control" name="mftProductCode" ng-model="query.mftProductCode" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" ng-click="search()" id="searchBtn"
+                                        ng-disabled="!searchForm.$valid"><span class="glyphicon glyphicon-search"></span> 查  询</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <button class="btn btn-default" ng-click="resetSearch()">重置</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                </form>
+
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+    <div class="alert alert-info">
+        <p>
+            <span class="glyphicon glyphicon-info-sign"></span>
+            重要提示：商城只会显示前5组搭配推荐！超出此数量的搭配不会显示。另外搭配推荐组合中的商品如果已下架了，则在商城页面不会再展示，请及时调整推荐组合！
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default panel-list-page">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- button bar -->
+                        <!--<div class="form-group" style="margin-bottom: 0px;">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-checked="selectedItems4All.length != 0 && selectedItems.length == selectedItems4All.length"
+                                       ng-click="toggleSelectionAll(selectedItems, selectedItems4All)"> 全选
+                            </label>
+                            <a href="" tabindex="30" id="multiCreateBtn" class="btn btn-primary navbar-btn" ng-click="multiCreate()"><span class="glyphicon glyphicon-plus"></span> 批量添加推荐组合</a>
+                        </div>-->
+                    </div>
+                    <div class="col-sm-12 pull-right text-right">
+                        <div ng-table-pagination="tableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <!-- data table -->
+                <div class="row">
+                    <div class="">
+                        <table ng-table="tableParams" class="table-info table-condensed table table-custom table-groupPromo">
+                            <tbody>
+                            <tr ng-repeat="item in currList" id="skuTd-{{item.id}}">
+                               <!-- <td width="2%" data-title="'#'" >
+                                    <input type="checkbox" ng-checked="selectedItems.indexOf(item.id) > -1"
+                                           ng-click="toggleSelection(selectedItems, item.id)" ng-init="selectedItems4All.push(item.id)"/>
+                                </td>-->
+                                <td  width="110px" data-title="''" style="text-align: left;">
+                                    <img ng-src="{{getProdImageUrl(item.image)}}"/>
+                                </td>
+                                <td  data-title="'商品'" style="text-align: left;">
+                                    <b class="name">{{item.productName}}</b>
+                                    <ul class="list-unstyled">
+                                        <li>SKU:  {{item.skuCode}}</li>
+                                        <li>型号: {{item.model}}</li>
+                                    </ul>
+                                </td>
+                                <td width="8%"  data-title="'飞飞价'" style="text-align: center;">
+                                    {{item.price | currency:' &yen;'}}
+                                </td>
+                                <td width="8%"  data-title="'库存'" style="text-align: center;">
+                                    {{item.quantityOnHand}}
+                                </td>
+                                <td width="8%"  data-title="'状态'" style="text-align: center;">
+                                    {{item.status | groupPromoStatus }}
+                                </td>
+                                <td width="20%" data-title="'操作'" style="text-align: left;">
+                                    <a class="btn btn-default" ng-if="canAdd(item)" ng-click="createNew(item.id)"><i class="fa fa-plus-circle"></i> 添加推荐组合</a>
+                                    &nbsp;&nbsp;
+                                    <a href="" ng-if="canViewList(item)" ng-click="togglePromoList(item.id)">
+                                        <span ng-if="!isPromoListShow(item.id)">查看推荐组合 <i class="fa fa-angle-down"></i></span>
+                                        <span ng-if="isPromoListShow(item.id)">收起推荐组合 <i class="fa fa-angle-up"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="loading" ng-if="!$loaded"></div>
+                    <!-- /.loading -->
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <!-- pagination -->
+                <div ng-table-pagination="tableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详细页面-->
+<div id="detailPage" style="display: none;"></div>
+
+

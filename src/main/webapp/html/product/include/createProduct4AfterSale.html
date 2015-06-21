@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        售后保障
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-24">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">发票:</label>
+                    <div class="col-sm-8">
+                        <label class="radio-inline">
+                            <input type="radio" checked="checked"> 有
+                        </label>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+
+                <!--暂时屏蔽 <div class="form-group">
+                    <label class="col-sm-4 control-label">保修:</label>
+                    <div class="col-sm-3">
+                        <label class="radio-inline">
+                            <input type="radio" name="hasWarranty" ng-model="product.hasWarranty" ng-selected="product.hasWarranty == 0" value="0"> 无
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hasWarranty" ng-model="product.hasWarranty" ng-selected="product.hasWarranty == 1" value="1"> 有
+                        </label>
+                    </div>
+                    <div class="col-sm-12" ng-show="product.hasWarranty == 1">
+                        <div class="row">
+                            <div class="form-group form-group-nest"  ng-class="{ 'has-error': (productForm.warrantyPeriod.$dirty || hasCommit) && productForm.warrantyPeriod.$invalid }">
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control " ng-model="product.warrantyPeriod"  name="warrantyPeriod" placeholder="请输入保修期"
+                                           ng-maxlength="20" ng-required="product.hasWarranty == 1" />
+
+                                    <div class="help-block"
+                                         ng-show="(productForm.warrantyPeriod.$dirty || hasCommit) && productForm.warrantyPeriod.$invalid">
+                                        <span ng-show="productForm.warrantyPeriod.$error.required">
+                                            保修期必填
+                                        </span>
+                                        <span ng-show="productForm.warrantyPeriod.$error.maxlength">
+                                            保修期不能超过20个字符
+                                        </span>
+                                     </div>
+                                </div>
+                                <div class="col-sm-16">
+                                       <div style="margin-top:7px;">例如'15天'、'30天'、'3个月'、'1年'、'终身'等</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                &lt;!&ndash; /.form-group &ndash;&gt;-->
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">退换货承诺:</label>
+                    <div class="col-sm-20">
+
+                        <div ng-repeat="promise in afterSaleEnumList">
+                            <div class="checkbox-inline" ng-class="{'disabled': promise.value == 2 }">
+                                <input type="checkbox" name="afterSaleEnum" value="{{promise.id}}"
+                                       ng-class="{'disabled' : promise.value == 2 }"
+                                       ng-disabled = "promise.value == 2"
+                                       ng-checked="product.promiseIds.indexOf(promise.id) > -1"
+                                       ng-click="toggleSelection(product.promiseIds, promise.id)"/>
+                                {{promise.name}}
+                            </div>
+                            <div class="clearfix"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group" ng-class="{ 'has-error': (productForm.afterSaleDesc.$dirty || hasCommit) && productForm.afterSaleDesc.$invalid }">
+                    <label for="afterSaleDesc" class="col-sm-4 control-label">&lowast; 售后说明:</label>
+                    <div class="col-sm-20">
+                        <textarea class="form-control" rows="5" ng-model="product.afterSaleDesc" name="afterSaleDesc"
+                                  placeholder="请填写售后说明，让买家更清楚售后保障，减少纠纷。"
+                                  ng-maxlength="500" required></textarea>
+
+                        <div class="help-block"
+                             ng-show="(productForm.afterSaleDesc.$dirty || hasCommit) && productForm.afterSaleDesc.$invalid">
+                            <span ng-show="productForm.afterSaleDesc.$error.required">
+                                售后说明必填
+                            </span>
+                            <span ng-show="productForm.afterSaleDesc.$error.maxlength">
+                                售后说明不能超过500个字符
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+
+
+            </div>
+            <!-- /col-lg-24-->
+        </div>
+        <!-- /.row (nested) -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-sm-24">
+
+        <div class="row" ng-repeat="imageGroup in roPro.descImages">
+            <div class="col-sm-24">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="image-group">
+                            <div class="row" ng-show="imageGroup.items.length != 0">
+                                <div class="col-sm-4" ng-repeat="image in imageGroup.items">
+                                    <div class="panel panel-default panel-custom">
+                                        <div class="panel-body text-center">
+                                            <img width="150" height="150" border="0" ng-src="{{getDescImageUrl(image.url)}}">
+                                        </div>
+                                        <!-- /.panel  -->
+                                    </div>
+                                    <!-- /.panel  -->
+                                </div>
+                                <!-- /.col-sm-4  -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!--/.image-group-->
+                    </div>
+                    <!-- /.panel-heading  -->
+                    <div class="panel-footer">
+                        <div class="" style="width:600px;">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">图片组{{$index+1}}:</label>
+
+                                    <div class="col-sm-20">
+                                        <p class="form-control-static">{{imageGroup.tag}}</p>
+                                    </div>
+
+                                </div>
+                                <!-- /.form-group  -->
+                            </ng-form>
+                            <!-- /.ng-form  -->
+                        </div>
+                    </div>
+                    <!-- /.panel-footer  -->
+                </div>
+                <!-- /.panel  -->
+            </div>
+            <!-- /.col-sm-16  -->
+        </div>
+        <!-- /.row  -->
+
+    </div>
+</div>
+<!-- /.row (nested) -->

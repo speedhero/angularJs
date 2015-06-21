@@ -181,6 +181,10 @@ public class BaseUtils {
 	public static Integer toInteger(long l) {
 		return Long.valueOf(l).intValue();
 	}
+	
+	public static Long toLong(int i){
+		return new Long((long)i);
+	}
 
 	public static String resetFlagGather(String flagGather, int location) {
 		return resetFlagGather(flagGather, location, '1');
@@ -233,5 +237,9 @@ public class BaseUtils {
 			className = className.substring(className.lastIndexOf(".") + 1);
 		}
 		return className;
+	}
+	
+	public static void printObject(Object object){
+		System.out.println(BaseUtils.dumpAll(object));
 	}
 }

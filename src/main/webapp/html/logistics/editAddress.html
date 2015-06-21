@@ -1,0 +1,76 @@
+
+<div class="row">
+  <ol class="breadcrumb">当前位置:
+    <li><a ui-sref="main.address">地址列表</a></li>
+    <li class="active">修改地址</li>
+  </ol>
+</div>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">地址信息</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-24">
+          <form id="addressForm" name="addressForm" role="form" novalidate class="form-horizontal">
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': ((addressForm.originState.$dirty || hasCommit) &amp;&amp; addressForm.originState.$invalid) || ((addressForm.originCity.$dirty || hasCommit) &amp;&amp; addressForm.originCity.$invalid) || ((addressForm.originArea.$dirty || hasCommit) &amp;&amp; addressForm.originArea.$invalid) }" class="form-group">
+              <label class="col-sm-4 control-label">∗ 发货地址:</label>
+              <div class="col-sm-4">
+                <select name="originState" ng-model="address.stateId" ng-options="state.regionId as state.regionName for state in stateArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select name="originCity" ng-show="address.stateId" ng-model="address.cityId" ng-options="city.regionId as city.regionName for city in cityArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select name="originArea" ng-show="address.cityId" ng-model="address.areaId" ng-options="area.regionId as area.regionName for area in areaArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div ng-show="((addressForm.originState.$dirty || hasCommit) &amp;&amp; addressForm.originState.$invalid) || ((addressForm.originCity.$dirty || hasCommit) &amp;&amp; addressForm.originCity.$invalid) || ((addressForm.originArea.$dirty || hasCommit) &amp;&amp; addressForm.originArea.$invalid)" class="help-block"><span>请选择发货区域</span></div>
+            </div>
+            <div ng-class="{ 'has-error': (addressForm.address.$dirty || hasCommit) &amp;&amp; addressForm.address.$invalid }" class="form-group">
+              <label class="col-sm-4 control-label"></label>
+              <div class="col-sm-12">
+                <input name="address" type="text" ng-model="address.contactAddress" ng-minlength="5" required class="form-control">
+                <div ng-show="(addressForm.address.$dirty || hasCommit) &amp;&amp; addressForm.address.$invalid" class="help-block"><span>请输入发货地址</span></div>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div class="form-group">
+              <label class="col-sm-4 control-label">邮编</label>
+              <div class="col-sm-8">
+                <input name="zipCode" type="text" ng-model="address.zipCode" class="form-control">
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': (addressForm.contact.$dirty || hasCommit) &amp;&amp; addressForm.contact.$invalid }" class="form-group">
+              <label class="col-sm-4 control-label">* 联系人</label>
+              <div class="col-sm-8">
+                <input name="contact" type="text" ng-model="address.contactPerson" ng-minlength="2" required class="form-control">
+                <div ng-show="(addressForm.contact.$dirty || hasCommit) &amp;&amp; addressForm.contact.$invalid" class="help-block"><span>请输入联系人</span></div>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': (addressForm.phone.$dirty || hasCommit) &amp;&amp; addressForm.phone.$invalid }" class="form-group">
+              <label class="col-sm-4 control-label">* 联系电话</label>
+              <div class="col-sm-8">
+                <input type="text" name="phone" ng-model="address.contactPhone" ng-pattern="/1[0-9]{10}$/" required class="form-control">
+                <div ng-show="(addressForm.phone.$dirty || hasCommit) &amp;&amp; addressForm.phone.$invalid" class="help-block"><span>请输入联系电话</span></div>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <!-- /.form-group-->
+            <div class="form-group">
+              <div class="col-sm-20 col-sm-offset-4"><a id="submitBtn" ng-click="submitForm()" data-loading-text="提交中，请稍候" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-save"></span><span>&nbsp; 保   存</span></a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

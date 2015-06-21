@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form role="form" id="productSearchForm" name="productSearchForm">
+
+            <div class="form-group">
+                <label>商品类目:</label>
+                <select class="form-control" name="categoryId" ng-model="query.categoryId" ng-options="category.id as category.name for category in supplierCategories">
+                    <option value="">--请选择--</option>
+                </select>
+            </div>
+            <!-- /.form-group -->
+
+            <div class="form-group">
+                <label>商品名称:</label>
+                <input class="form-control" name="productName" ng-model="query.productName" placeholder="">
+            </div>
+            <!-- /.form-group -->
+
+            <div class="form-group">
+                <label>型号:</label>
+                <input class="form-control" name="model" ng-model="query.model" placeholder="">
+            </div>
+            <!-- /.form-group -->
+
+            <div class="form-group">
+                <label>SKU编号:</label>
+                <input class="form-control" name="skuCode" ng-model="query.skuCode" placeholder="">
+            </div>
+            <!-- /.form-group -->
+
+            <div class="form-group">
+                <label>商家编码:</label>
+                <input class="form-control" name="mftProductCode" ng-model="query.mftProductCode" placeholder="">
+            </div>
+            <!-- /.form-group -->
+
+            <button class="btn btn-primary" ng-click="search()" id="searchBtn"
+                    ng-disabled="!productSearchForm.$valid"><span class="glyphicon glyphicon-search"></span> 查  询</button>
+            <button class="btn btn-default" ng-click="resetSearch()">重置</button>
+
+        </form>
+
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+
+
+

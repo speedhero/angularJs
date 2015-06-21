@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yejq.core.mapper.StateMapper" >
+  <resultMap id="BaseResultMap" type="State" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, abbreviation, name
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from state
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="customSelect" parameterType="map" resultType="hashmap">
+    select ${outColumns} from state where ${keyColumn} = #{keyValue} limit 1
+  </select>
+  <insert id="save" parameterType="State" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+    insert into state
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="abbreviation != null" >
+        abbreviation,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="abbreviation != null" >
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">  
+    	SELECT LAST_INSERT_ID();  
+    </selectKey>
+  </insert>
+  <update id="update" parameterType="State" >
+    update state
+    <set >
+      <if test="abbreviation != null" >
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="saveBatch" parameterType="java.util.List" >
+    insert into state (abbreviation, name) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <choose>
+          <when test="item.abbreviation == null">'',</when>
+          <otherwise>#{item.abbreviation},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.name == null">'',</when>
+          <otherwise>#{item.name},</otherwise>
+        </choose>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

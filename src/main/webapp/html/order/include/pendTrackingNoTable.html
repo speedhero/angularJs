@@ -1,0 +1,53 @@
+<div class="table-responsive">
+    <table ng-table="pendTrackingNoTableParams" id="pendTrackingNoTable"
+           class="table-info table-condensed table-hover table-striped table table-custom">
+        <thead>
+        <tr class="text-center">
+            <th>订单编号</th>
+            <th>运单号</th>
+            <th>物流公司</th>
+            <th>下单时间</th>
+            <th>发货时间</th>
+            <th>签收状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody class="table table-condensed">
+        <tr class="text-center" ng-repeat="o in $data" >
+            <td style="width:150px">
+                <span>
+                    <a href="javascript:void(0)" title="点击查看订单详情" ng-click="checkOrderDetail(o.orderNo);">{{o.orderNo}}</a>
+                </span>
+            </td>
+            <td style="width:150px">
+                <span>{{o.trackingNumber}}</span>
+            </td>
+            <td style="width:150px;">
+                <span>{{o.carrier}}</span>
+            </td>
+            <td style="width:150px">
+                <span>{{o.orderTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+            </td>
+            <td style="width:150px">
+                <span>{{o.sendTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+            </td>
+            <td style="width:100px">
+                {{o.status | pendTrackingOrderStatus}}
+            </td>
+            <td style="width:120px;">
+                <div >
+                    <button type="button" ng-if="o.status == 0"
+                            class="btn btn-default"
+                            data-toggle="modal" data-target="#myModal"
+                            ng-click="openTrackingNoUpdateModal(o.orderNo,o.trackingNumber,o.carrierCode);">
+                        &nbsp;&nbsp;修&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;改&nbsp;&nbsp;
+                    </button>
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,180 @@
+<!-- 咨询列表页面-->
+<div>
+    <div class="row functionBar">
+        <ol class="breadcrumb">当前位置：
+            <li><a ui-sref="main.products">商品</a></li>
+            <li class="active">咨询列表</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row" ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="consultSearchForm" name="consultSearchForm">
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">商品名称:</label>
+                                <div class="col-sm-18">
+                                    <input class="form-control" name="productName" ng-model="query.productName" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">SKU编号:</label>
+                                <div class="col-sm-18">
+                                    <input class="form-control" name="skuCode" ng-model="query.skuCode" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">咨询类型:</label>
+                                <div class="col-sm-18">
+                                    <select class="form-control" ng-model="query.type" name="type" ng-options="type.value as type.label for type in _types">
+                                        <option value="">--- 请选择 ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">回复状态:</label>
+                                <div class="col-sm-18">
+                                    <select class="form-control" ng-model="query.status" name="type" ng-options="status.value as status.label for status in _statuses">
+                                        <option value="">--- 请选择 ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" ng-click="search()" id="searchBtn"
+                                        ng-disabled="!consultSearchForm.$valid"><span class="glyphicon glyphicon-search"></span> 查  询</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <button class="btn btn-default" ng-click="resetSearch()">重置</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </form>
+
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <div class="row">
+        <div class="panel panel-default panel-list-page panel-consultList">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- button bar -->
+                    </div>
+                    <div class="col-sm-12 pull-right text-right">
+                        <div ng-table-pagination="consultTableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <!-- data table -->
+                <div class="row">
+                    <div class="">
+                        <table ng-table="consultTableParams" class="table-info table-condensed table-hover table-striped table table-custom">
+                            <tbody>
+                            <tr ng-repeat="consult in $data">
+                                <td width="110px"  data-title="'图片'"  >
+                                    <img ng-src="{{getSkuImageUrl(consult.image)}}"/>
+                                </td>
+                                <td width="300px"  data-title="'商品信息'" >
+                                    <b>{{consult.productName}}</b>
+                                    <ul class="list-unstyled">
+                                        <li>SKU:  {{consult.skuCode}}</li>
+                                        <li>价格: {{consult.price | currency:' &yen;'}}</li>
+                                    </ul>
+                                </td>
+                                <td width="150px"  data-title="'用户'"  style="text-align:center">
+                                    {{consult.userName}}
+                                    <br/><i class="fa fa-user"></i>{{consult.userLevelName}}
+                                </td>
+                                <td width="100px"  style="text-align: center;" data-title="'咨询类型'"  >
+                                    {{consult.type | consultType}}
+                                </td>
+                                <td data-title="'咨询'"  >
+                                    <div class="ask">
+                                        <p><b>{{consult.consultContent}}</b></p>
+                                        <footer>&nbsp;&nbsp;{{consult.consultTime | date: "yyyy-MM-dd HH:mm:ss"}}</footer>
+                                    </div>
+
+                                    <div ng-if="!canReply(consult)">
+                                        <div class="answer" ng-repeat="reply in consult.replyList">
+                                            <div >
+                                                <p class="content"><b>已回复： {{reply.replyContent}}</b></p>
+                                                <footer>&nbsp;&nbsp;{{reply.replyTime | date: "yyyy-MM-dd HH:mm:ss"}}</footer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="canReply(consult)" class="text-center" style="margin-bottom:10px;">
+                                        <a class="btn btn-primary" ng-click="showModal4ReplyConsult(consult)">回复</a>
+                                    </div>
+
+
+
+                                </td>
+                                <td width="80px"  style="text-align: center;" data-title="'有用数'"  >
+                                    <span class="badge">{{consult.favoriteNum}}</span>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="loading" ng-if="!$loaded"></div>
+                    <!-- /.loading -->
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <!-- pagination -->
+                <div ng-table-pagination="consultTableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- 咨询回复Modal-->
+<div ng-include="templates.replyModal"></div>
+
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yejq.core.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product" property="product" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product, price, quantity, order_date
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from `order`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="customSelect" parameterType="map" resultType="hashmap">
+    select ${outColumns} from `order` where ${keyColumn} = #{keyValue} limit 1
+  </select>
+  <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="product != null" >
+        product,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="product != null" >
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate},
+      </if>
+    </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">  
+    	SELECT LAST_INSERT_ID();  
+    </selectKey>
+  </insert>
+  <update id="update" parameterType="Order" >
+    update `order`
+    <set >
+      <if test="product != null" >
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="saveBatch" parameterType="java.util.List" >
+    insert into `order` (product, price, quantity, order_date) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <choose>
+          <when test="item.product == null">'',</when>
+          <otherwise>#{item.product},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.price == null">0.0000,</when>
+          <otherwise>#{item.price},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.quantity == null">0,</when>
+          <otherwise>#{item.quantity},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.orderDate == null">'0000-00-00 00:00:00',</when>
+          <otherwise>#{item.orderDate},</otherwise>
+        </choose>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

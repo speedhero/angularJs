@@ -1,0 +1,41 @@
+<div class="orderDetail">
+    <div class="row">
+        <ol class="breadcrumb">
+            当前位置：
+            <li><a href="" ng-click="backToOrderList()"><span class="fa fa-arrow-circle-left"></span>
+                <span ng-if="$backTo == 1">返回订单列表</span>
+                <span ng-if="$backTo == 2">返回发货列表</span>
+                <span ng-if="$backTo == 3">返回问题运单号列表</span>
+                <span ng-if="$backTo == 4">返回修改运单号列表</span>
+                <span ng-if="$backTo == 5">返回运单号操作日志</span>
+            </a>
+            </li>
+            <li class="active">订单详情</li>
+        </ol>
+    </div>
+    <div>
+        <!-- 订单状态 -->
+        <div ng-include="orderDetailTemplates.orderProgress"></div>
+
+        <!--订单追踪-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>订单跟踪</strong>
+            </div>
+            <div class="panel-body">
+                <!-- 待发货 -->
+                <div ng-if="orderDetail.status >20 && orderDetail.status < 60 && orderDetail.flagGather == false"
+                     ng-include="orderDetailTemplates.trackOrderWaitForDeliver"></div>
+                <!-- 配送中 -->
+                <div ng-if="orderDetail.status >= 60 && orderDetail.status < 120 && orderDetail.flagGather == false"
+                     ng-include="orderDetailTemplates.trackOrderDistributing"></div>
+                <!-- 已取消 -->
+                <div ng-if="orderDetail.status == 120" ng-include="orderDetailTemplates.trackOrderCancel"></div>
+            </div>
+        </div>
+
+        <!-- 订单详情 -->
+        <div ng-include="orderDetailTemplates.orderInfo"></div>
+    </div>
+</div>
+<!-- end of #orderDetailPage-->

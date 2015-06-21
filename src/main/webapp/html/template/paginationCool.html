@@ -1,0 +1,35 @@
+<div class="pagination-cool ">
+
+    <ul class="pagination  pull-right">
+        <li ng-if="page.type=='first'" class="icon-only" ng-class="{'disabled': page.type=='first' && params.page() == 1}" ng-repeat="page in pages" ng-switch="page.type">
+            <a ng-switch-when="first" ng-click="gotoPageSimple(page.number)" href=""><i class="fa fa-fast-backward"></i></a>
+        </li>
+        <li ng-if="page.type=='prev'" class="icon-only" ng-class="{'disabled': (['prev','next'].indexOf(page.type)!= -1) && (!page.active) }" ng-repeat="page in pages" ng-switch="page.type">
+            <a ng-switch-when="prev" ng-click="gotoPageSimple(page.number)" href=""><i class="fa fa-step-backward"></i></a>
+        </li>
+        <li class="page-control">
+            <a class="go">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <span class="form-control-static">当前第</span>
+                        <div class="input-group" >
+                            <input type="text" class="form-control" ng-model="pageToGo">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="gotoPage(pageToGo, totalPage())"  type="button">Go!</button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                        <span ng-if="params.total()">/ {{totalPage()}}</span>
+                        <span class="form-control-static">页</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li ng-if="page.type=='next'" class="icon-only" ng-class="{'disabled': (['prev','next'].indexOf(page.type)!= -1) && (!page.active) }" ng-repeat="page in pages" ng-switch="page.type">
+            <a ng-switch-when="next" ng-click="gotoPageSimple(page.number)"  href=""><i class="fa fa-step-forward"></i></a>
+        </li>
+        <li ng-if="page.type=='last'" class="icon-only" ng-class="{'disabled': page.number == params.page() }" ng-repeat="page in pages" ng-switch="page.type">
+            <a ng-switch-when="last" ng-click="gotoPageSimple(page.number)" href=""><i class="fa fa-fast-forward"></i></a>
+        </li>
+    </ul>
+</div>

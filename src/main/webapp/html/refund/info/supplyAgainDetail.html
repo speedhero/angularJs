@@ -1,0 +1,80 @@
+<!-- 处理信息中的补发详情 -->
+<div class="row">
+    <!-- 补发详情（待受理） -->
+    <div ng-if="refundStatus==1">
+        <div class="col-lg-3 icon"><i class="fa fa-exclamation-circle fa-4x"></i></div>
+        <div class="col-lg-21">
+            <h3 class="title">请受理补发申请</h3>
+            <p>
+                确认补发前，请您确认商品是否尚未发出，以避免不必要的损失；如您确认已发货，请提供物流凭证。<br>
+                <!-- <a href="#">查看凭证要求</a> -->
+            </p>
+            <div class="row">
+                <div class="col-lg-6">
+                    <button class="btn btn-block btn-default" ng-click="agreeDontNeedReceive();">同意补发申请</button>
+                </div>
+                <!-- <div class="col-lg-6">
+                    <button class="btn btn-block btn-link">申请飞飞客服介入</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 补发详情（待补发） -->
+    <div ng-if="refundStatus==2">
+        <div class="raw">
+            <div class="col-lg-3 icon"><i class="fa fa-exclamation-circle fa-4x"></i></div>
+            <div class="col-lg-21">
+                <h3 class="title"> 等待制造商补发商品</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3 col-lg-offset-21">
+                <div ng-include="template.redeliver"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 补发详情（已补发）-->
+    <div ng-if="refundStatus==3">
+        <div class="raw">
+            <div class="col-lg-3 icon"><i class="fa fa-exclamation-circle fa-4x"></i></div>
+            <div class="col-lg-21">
+                <h3 class="title">等待消费者签收商品</h3>
+            </div>
+        </div>
+        <!--物流信息-->
+        <div class="raw">
+            <div class="col-lg-offset-1 col-lg-21">
+                <div ng-include="template.refundLogistics"></div>
+            </div>
+        </div>
+      <!--   <div class="raw">
+            <div class="col-lg-offset-1 col-lg-7">
+                <button class="btn btn-block btn-link">申请飞飞客服介入</button>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- 补发详情（完成）-->
+    <div ng-if="refundStatus==4">
+        <div class="col-lg-3 icon"><i class="fa fa-check-circle fa-4x text-success"></i></div>
+        <div class="col-lg-21">
+            <h3 class="title">补发完成</h3>
+            <div class="raw">
+                <div class="col-lg-offset-1 col-lg-21">
+                    <div ng-include="template.refundLogistics"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!--补发详情（取消）-->
+    <div ng-if="refundStatus==5">
+        <div class="col-lg-3 icon"><i class="fa fa-exclamation-circle fa-4x"></i></div>
+        <div class="col-lg-21">
+            <h3 class="title">消费者取消了补发申请</h3>
+        </div>
+    </div>
+</div>

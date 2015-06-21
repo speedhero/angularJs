@@ -1,0 +1,15 @@
+<div class="helpCenter">
+    <div class="row">
+        <ol class="breadcrumb">当前位置：
+            <li class="active">帮助中心</li>
+            <li class="active">{{$currMenu.name}}</li>
+        </ol>
+    </div>
+    <div  ng-include="templates.detail"></div>
+
+    <div class="sideBar">
+        <a href="" title="回到顶部" class="top" ng-click="gotoTop()">
+            <i class="fa fa-arrow-circle-up"></i>
+        </a>
+    </div>
+</div>

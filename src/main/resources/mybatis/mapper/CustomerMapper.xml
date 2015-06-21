@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yejq.core.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="Customer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="first_name" property="firstName" jdbcType="VARCHAR" />
+    <result column="last_name" property="lastName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="state_id" property="stateId" jdbcType="INTEGER" />
+    <result column="zip" property="zip" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, first_name, last_name, email, address, city, state_id, zip, gender
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="customSelect" parameterType="map" resultType="hashmap">
+    select ${outColumns} from customer where ${keyColumn} = #{keyValue} limit 1
+  </select>
+  <insert id="save" parameterType="Customer" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="firstName != null" >
+        first_name,
+      </if>
+      <if test="lastName != null" >
+        last_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="stateId != null" >
+        state_id,
+      </if>
+      <if test="zip != null" >
+        zip,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="firstName != null" >
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="zip != null" >
+        #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">  
+    	SELECT LAST_INSERT_ID();  
+    </selectKey>
+  </insert>
+  <update id="update" parameterType="Customer" >
+    update customer
+    <set >
+      <if test="firstName != null" >
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        state_id = #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="zip != null" >
+        zip = #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="saveBatch" parameterType="java.util.List" >
+    insert into customer (first_name, last_name, email, address, city, state_id, zip, gender) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <choose>
+          <when test="item.firstName == null">'',</when>
+          <otherwise>#{item.firstName},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.lastName == null">'',</when>
+          <otherwise>#{item.lastName},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.email == null">'',</when>
+          <otherwise>#{item.email},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.address == null">'',</when>
+          <otherwise>#{item.address},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.city == null">'',</when>
+          <otherwise>#{item.city},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.stateId == null">0,</when>
+          <otherwise>#{item.stateId},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.zip == null">'',</when>
+          <otherwise>#{item.zip},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.gender == null">'',</when>
+          <otherwise>#{item.gender},</otherwise>
+        </choose>
+      </trim>
+    </foreach>
+  </insert>
+
+</mapper>

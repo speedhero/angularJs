@@ -1,0 +1,99 @@
+
+<!-- 发 货 -->
+<div class="modal fade" id="deliverModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">订单发货</h4>
+            </div>
+            <div class="modal-body" ng-show="!isDeliver">
+                <form class="form-horizontal form-justtified">
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">收货人:</label>
+
+                        <div class="col-sm-16">
+                            <p class="form-control-static">
+                                {{receiveInfo.receiveName}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">收货地址:</label>
+
+                        <div class="col-sm-16">
+                            <p class="form-control-static">{{receiveInfo.receiveAddress}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">联系方式:</label>
+
+                        <div class="col-sm-16">
+                            <p class="form-control-static">{{receiveInfo.phone}}</p>
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal" style="width:100%;" role="form" name="deliverModalForm" id="deliverModalForm">
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">&lowast; 物流/快递公司:</label>
+                        <div class="col-sm-16">
+                            <select id="orderExpress" class="form-control" required ng-model="deliverInfoForModal.logisticsCompany"  ng-options="item.name for item in $logisticsCompanies">
+                                <option value="">------请选择--------</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': deliverModalForm.trackingNo.$dirty && deliverModalForm.trackingNo.$invalid }">
+                        <label class="col-sm-8 control-label">&lowast; 运单号:</label>
+
+                        <div class="col-sm-16">
+                            <div style="position:relative">
+                                <div class="largerView">{{formattedOutputNumber(deliverInfoForModal.trackingNo)}}</div>
+                                <input type="text" class="form-control" name="trackingNo" ng-pattern="/^[A-Za-z0-9]+$/" required ng-model="deliverInfoForModal.trackingNo"
+                                       ng-focus="trackingNoOnFocus4List($event)" ng-blur="trackingNoOnBlur4List($event)"/>
+                                <div class="help-block" ng-show="(deliverModalForm.trackingNo.$dirty ) && deliverModalForm.trackingNo.$invalid">
+                                <span ng-show="deliverModalForm.trackingNo.$error.required">
+                                运单号不可为空
+                                </span>
+                                <span ng-show="deliverModalForm.trackingNo.$invalid &&!deliverModalForm.trackingNo.$error.required">
+                                只允许输入字母和数字
+                                </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-10">
+                            <button type="submit" class="form-control btn btn-primary"
+                                    ng-disabled="deliverModalForm.$invalid" ng-click="deliver(deliverInfoForModal)">发货
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body" ng-show="isDeliver">
+                <div class="text-center order-info-well" style="font-size:18px;margin:auto;">
+                    <p>
+                        订单
+                        <strong>{{orderNumberForDeliver}}</strong>
+                        发货成功
+                    </p>
+                    <p>
+                        该页面
+                        <strong class="text-danger">{{closeDeliverModalTime}} </strong>
+                        秒后关闭
+                    </p>
+                    <br>
+                    <button type="button" class="btn btn-primary" ng-click="checkOrderDetail4DeliverModal(orderNumberForModal)">
+                        查看订单详情
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="closeDeliverModal()">
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

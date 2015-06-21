@@ -1,0 +1,165 @@
+<div class="row">
+    <ol class="breadcrumb">
+        当前位置：
+        <li class="active">制造商信息</li>
+    </ol>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">基本信息</div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">制造商名称:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">{{manufacturerInfo.mftNameCn}}</p>
+                </div>
+                <label class="col-sm-3 control-label">英文名称:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.mftNameEng}}
+                    </p>
+                </div>
+            </div>
+            <!--/form-group -->
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">注册品牌:</label>
+
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.mftBrandInCn}}
+                    </p>
+                </div>
+            </div>
+            <!--/form-group -->
+        </div>
+        <!--/form-horizontal -->
+    </div>
+</div>
+
+<!-- 合作信息 -->
+<div class="panel panel-default">
+    <div class="panel-heading">合作信息</div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">合作模式:</label>
+
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.collaborationValue}}
+                    </p>
+                </div>
+
+
+                <label class="col-sm-3 control-label">月结周期:</label>
+
+                <div class="col-sm-9">
+                    <p class="form-control-static">{{manufacturerInfo.reckoningPeroidValue}}</p>
+                </div>
+            </div>
+            <!--/form-group -->
+
+            <!--<div class="form-group">
+                <label class="col-sm-3 control-label">是否参与渠道推广:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        <span ng-if="manufacturerInfo.isChannelPromo == 1">参与</span>
+                        <span ng-if="manufacturerInfo.isChannelPromo != 1">不参与</span>
+                    </p>
+                </div>
+            </div>
+            &lt;!&ndash;/form-group &ndash;&gt;-->
+
+        </div>
+        <!--/form-horizontal -->
+    </div>
+</div>
+
+<!-- 联系人信息 -->
+<div class="panel panel-default">
+    <div class="panel-heading">联系人信息</div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">签约人:</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.contractor}}
+                    </p>
+                </div>
+            </div>
+            <!--/form-group -->
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">总负责人:</label>
+
+                <div class="col-sm-3">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.salerName}}
+                    </p>
+                </div>
+                <label class="col-sm-2 control-label">职位:</label>
+
+                <div class="col-sm-4">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.salerPosition}}
+                    </p>
+                </div>
+                <label class="col-sm-3 control-label">手机号码:</label>
+
+                <div class="col-sm-3">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.salerMobileNum}}
+                    </p>
+                </div>
+                <label class="col-sm-2 control-label">E-mail:</label>
+
+                <div class="col-sm-4">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.salerMailAddress}}
+                    </p>
+                </div>
+            </div>
+            <!--/form-group -->
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">日常联系人:</label>
+
+                <div class="col-sm-3">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.financialStaffName}}
+                    </p>
+                </div>
+                <label class="col-sm-2 control-label">职位:</label>
+
+                <div class="col-sm-4">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.financialStaffPosition}}
+                    </p>
+                </div>
+                <label class="col-sm-3 control-label">手机号码:</label>
+
+                <div class="col-sm-3">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.financialStaffMobileNum}}
+                    </p>
+                </div>
+                <label class="col-sm-2 control-label">E-mail:</label>
+
+                <div class="col-sm-4">
+                    <p class="form-control-static">
+                        {{manufacturerInfo.financialStaffMailAddress}}
+                    </p>
+                </div>
+            </div>
+            <!--/form-group -->
+        </div>
+        <!--/form-horizontal -->
+    </div>
+</div>
+
+<!-- 商城部分-->
+<div ng-include="storePanel.currTemplate"></div>
+

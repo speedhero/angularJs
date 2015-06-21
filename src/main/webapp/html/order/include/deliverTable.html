@@ -1,0 +1,93 @@
+<div class="table-responsive">
+    <table ng-table="deliverTableParams"  class="table table-info table-condensed table-custom table-custom-two">
+        <tbody>
+            <tr ng-repeat-start="o in $data" class="first bg-info">
+                <td colspan="3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input style="float: left"  type="checkbox" ng-checked="selectedItems.indexOf(o.number) > -1"
+                                   ng-click="toggleSelection(selectedItems,o.number);toggleSelection(selectedShipmentItems,o.orderShipmentNumber);"
+                                   ng-init="pushToSelected(o.status,o.number,o.orderShipmentNumber);">
+
+                            &nbsp;&nbsp;<strong>订单编号：</strong><a href="javascript:void(0)" title="点击查看订单详情" ng-click="checkOrderDetail(o.number);">{{o.number}}</a>
+                        </div>
+                        <div class="col-sm-8">
+                            <strong>下单时间：</strong>{{o.orderTime | date:'yyyy-MM-dd HH:mm'}}
+                        </div>
+                        <div class="col-sm-4">
+                            <strong>订单金额：</strong>{{o.totalAmount | currency:' &yen;' }}
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <strong >最迟发货时间：</strong>
+                            <span>{{(o.orderTime + 3600000*48) | date:'yyyy-MM-dd HH:mm'}}</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-repeat-end class="second">
+                <td style="position:relative">
+                    <div class="sbtn" ng-if="o.orderSkuVOs.length > 1">
+                        <a href="" ng-click="showOtherSkus(o)" ng-if="!isShowOtherSkus(o)"><i class="fa fa-caret-down"></i> 显示全部商品</a>
+                        <a href="" ng-click="hideOtherSkus(o)" ng-if="isShowOtherSkus(o)"><i class="fa fa-caret-up"></i> 隐藏其他商品</a>
+                        (共{{o.orderSkuVOs.length}}个)
+                    </div>
+                    <div ng-repeat="item in o.orderSkuVOs">
+                        <div ng-show="isShowOtherSkus(o, $index)">
+                            <div class="skuName">
+                                <a target="_blank" ng-href="http://item.feifei.com/{{item.skuNumber}}.html">
+                                    <b>{{item.skuName}}</b>
+                                </a>
+                            </div>
+                            <dl class="dl-horizontal">
+                                <dt>SKU编号：</dt>
+                                <dd>{{item.skuNumber}}</dd>
+                                <dt>型号：</dt>
+                                <dd>{{item.skuCode}}</dd>
+                                <dt>商家编码：</dt>
+                                <dd>{{item.merchantProductCode	}}</dd>
+                                <dt>商品数量：</dt>
+                                <dd><span class="text-primary">{{item.skuQuantity}}</span></dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                </td>
+                <td style="width:500px;border-left: 1px dotted #ddd;border-right: 1px dotted #ddd;">
+                    <dl class="dl-horizontal">
+                        <dt>收货地址：</dt>
+                        <dd>{{o.orderReceiveVO.receiveAddress}}</dd>
+                        <dt>收货人：</dt>
+                        <dd>{{o.orderReceiveVO.receiveName}}</dd>
+                        <dt>联系方式：</dt>
+                        <dd>{{o.orderReceiveVO.phone}}</dd>
+                    </dl>
+                </td>
+                <td  style="width:170px;">
+                    <div class="btn-group-vertical btn-block">
+                        <button type="button" class="btn btn-default"
+                                ng-click="checkOrderDetail(o.number);">
+                                        查看详情
+                        </button>
+                        <button type="button" ng-show="(o.hasInvoice == 1) && (currentTab==1 || (o.status>=20 && o.status<60))"
+                                class="btn btn-default" id="billInfoBtn-{{o.orderId}}"
+                                ng-click="getBillInfo(o.orderId)" title="发票信息"
+                                placement="left" maxwidth="400">
+                            发票信息
+                        </button>
+                        <a class="btn btn-default"
+                           ng-show="o.flagGather == false && (currentTab==1 || (o.status>=20 && o.status<60))"
+                           ng-href='/#/printDelivery?orderNumbers={{o.orderShipmentNumber}}' target="_blank">
+                            打印清单
+                        </a>
+                        <button type="button" ng-show="o.flagGather == false && (currentTab==1 || ( o.status>=20 && o.status<60))"
+                                class="btn btn-default"
+                                data-toggle="modal" data-target="#myModal"
+                                ng-click="openDeliverModal(o.orderReceiveVO,o.status,o.number)"><!--模拟数据 flagGather == false orderNumberForCanDeliver != o.number -->
+                            &nbsp;发&nbsp;&nbsp;&nbsp;&nbsp;货&nbsp;&nbsp;
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

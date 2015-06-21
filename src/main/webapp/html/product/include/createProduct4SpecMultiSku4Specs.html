@@ -1,0 +1,36 @@
+<div class="form-horizontal specsOptionList">
+    <div class="row">
+        <div class="col-lg-24">
+            <div class="form-group" ng-repeat="spec in specs">
+                <label for="spec-{{spec.id}}" class="col-sm-4 control-label">{{spec.name}}:</label>
+                <div class="col-sm-20">
+                    <div class="pull-left"  style="margin-right: 10px;" ng-repeat="option in spec.options">
+                        <div class="pull-left">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="spec-{{spec.id}}[]" value="{{option.optionId}}"
+                                       ng-checked="option.checked"
+                                       ng-click="secondChooseSpec($event, spec.id, option)">
+
+                                <span ng-show="!option.checked">{{option.optionName}}</span>
+                                <span ng-show="option.checked">&nbsp;</span>
+                            </label>
+                        </div>
+                        <div  class="pull-left editable-div">
+                            <label class="checkbox-inline">
+                                <a href="" ng-show="option.checked" editable-text="option.optionNameAlias"  onbeforesave="renameOptionName4Full(spec.id, option, $data)">
+                                    {{getOptionRealName(option)}}
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col-lg-24 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.form-horizontal -->
+

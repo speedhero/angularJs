@@ -1,0 +1,28 @@
+<form class="form-horizontal" role="form" id="specsForm" name="specsForm">
+    <div class="panel panel-default panel-undertab">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-24">
+                    <!-- 规格信息 -->
+                    <div ng-include="templates.specSection4ViewMode"/>
+                    <!-- 商品图片信息 -->
+                    <div ng-include="templates.imageSection4ViewMode"/>
+                    <!-- 物流配送信息 -->
+                    <div ng-include="templates.logisticsSection4ViewMode"/>
+                </div>
+            </div>
+
+
+            <div class="row fix_btn_bar">
+                <div class="col-lg-19">
+                </div>
+                <div class="col-lg-4">
+                    <a ng-click="editSpecs()" class="btn btn-primary btn-lg btn-block" ><span class="glyphicon glyphicon-pencil"></span>&nbsp; 编   辑
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

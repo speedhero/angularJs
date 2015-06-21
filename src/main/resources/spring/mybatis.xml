@@ -8,7 +8,7 @@
 		<property name="dataSource" ref="dbcpDataSource" />
 		<!-- 显式指定Mapper文件位置 -->
 		<property name="mapperLocations" value="classpath:/mybatis/mapper/*Mapper.xml" />
-		<property name="typeAliasesPackage" value="com.yejq.core.model,com.yejq.core.query,com.github.miemiedev.mybatis.paginator.domain"/>
+		<property name="typeAliasesPackage" value="com.yejq.core.model,com.yejq.core.query"/>
         <property name="failFast" value="true"/>
 		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
 	</bean>

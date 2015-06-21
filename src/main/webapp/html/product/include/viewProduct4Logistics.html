@@ -1,0 +1,84 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        物流配送
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-24">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">运费:</label>
+
+                    <div class="col-sm-20">
+                        <p class="form-control-static" ng-if="roPro.whoPayCarriage == 1">卖家承担运费</p>
+                        <p class="form-control-static" ng-if="roPro.whoPayCarriage == 2">买家承担运费</p>
+                        <br/>
+
+                        <div ng-show="roPro.whoPayCarriage == 2">
+                            <div class="row row-custom">
+                                <div class="col-sm-10">
+                                    <div class="form-group">
+                                        <div class="col-sm-24">
+                                            <p class="form-control-static">运费模板：
+                                                {{getLogisticsTemplateName()}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+
+                            <div class="row row-custom">
+                                <div class="col-sm-24">
+                                    <table class="table table-bordered table-custom" ng-style="getLogisticsTableStyle()">
+                                        <thead>
+                                        <tr>
+                                            <th width="100px" ng-repeat="spec in specs | filter:isSpecChecked">
+                                                {{spec.name}}
+                                            </th>
+                                            <th width="200px">&lowast; 物流重量(kg)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="sku in roPro.skus">
+                                            <!-- ===规格值=== -->
+                                            <td ng-repeat="spec in specs | filter:isSpecChecked">
+                                                {{getOptionRealName(sku.specs[spec.id+''])}}
+                                            </td>
+                                            <td>
+                                                {{sku.carriage}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.运费模板 -->
+
+
+                    </div>
+                    <!-- /.col-sm-20 -->
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">配送地区备注:</label>
+
+                    <div class="col-sm-20">
+                        <p class="form-control-static">{{roPro.shipRegionRemark}}</p>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /col-lg-24-->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->

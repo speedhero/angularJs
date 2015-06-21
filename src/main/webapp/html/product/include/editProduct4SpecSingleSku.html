@@ -1,0 +1,205 @@
+<div ng-show="product.skuType == 0">
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.marketPrice.$dirty || hasCommit) && specsForm.marketPrice.$invalid }">
+        <label class="col-sm-4 control-label">&lowast; 市场价(元):</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="marketPrice" ng-model="product.skus[0].marketPrice" placeholder="请输入市场价"
+                   validate-positive-float ng-required="product.skuType == 0"/>
+
+            <div class="help-block"
+                 ng-show="(specsForm.marketPrice.$dirty || hasCommit) && specsForm.marketPrice.$invalid">
+                <span ng-show="specsForm.marketPrice.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.marketPrice.$error.float">
+                    请输入大于0的有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.price.$dirty || hasCommit) && specsForm.price.$invalid }">
+        <label class="col-sm-4 control-label">&lowast; 飞飞价(元):</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="price" ng-model="product.skus[0].price" placeholder="请输入飞飞价"
+                   validate-positive-float ng-required="product.skuType == 0"/>
+
+            <div class="help-block"
+                 ng-show="(specsForm.price.$dirty || hasCommit) && specsForm.price.$invalid">
+                <span ng-show="specsForm.price.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.price.$error.float">
+                    请输入大于0的有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.quantityOnHand.$dirty || hasCommit) && specsForm.quantityOnHand.$invalid }">
+        <label class="col-sm-4 control-label">&lowast; 库存(件):</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="quantityOnHand" ng-model="product.skus[0].quantityOnHand"
+                   placeholder="请输入库存"
+                   validate-integer ng-required="product.skuType == 0"/>
+
+            <div class="help-block"
+                 ng-show="(specsForm.quantityOnHand.$dirty || hasCommit) && specsForm.quantityOnHand.$invalid">
+                <span ng-show="specsForm.quantityOnHand.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.quantityOnHand.$error.integer">
+                    请输入有效的整数
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">&lowast; 长宽高(cm*3):</label>
+
+        <div class="col-sm-6" ng-class="{ 'has-error': (specsForm.length.$dirty || hasCommit) && specsForm.length.$invalid }">
+            <input class="form-control" name="length" ng-model="product.skus[0].length" placeholder="长(厘米)"
+                   validate-float ng-required="product.skuType == 0"/>
+
+            <div class="help-block"
+                 ng-show="(specsForm.length.$dirty || hasCommit) && specsForm.length.$invalid">
+                <span ng-show="specsForm.length.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.length.$error.float">
+                    请输入有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+
+        <div class="col-sm-1"><label class="label-custom"> X</label>
+        </div>
+
+        <div class="col-sm-6" ng-class="{ 'has-error': (specsForm.width.$dirty || hasCommit) && specsForm.width.$invalid }">
+            <input class="form-control" name="width" ng-model="product.skus[0].width" placeholder="宽(厘米)"
+                   validate-float ng-required="product.skuType == 0"/>
+            <div class="help-block"
+                 ng-show="(specsForm.width.$dirty || hasCommit) && specsForm.width.$invalid">
+                <span ng-show="specsForm.width.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.width.$error.float">
+                    请输入有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+
+        <div class="col-sm-1"><label class="label-custom"> X</label>
+        </div>
+
+        <div class="col-sm-6" ng-class="{ 'has-error': (specsForm.height.$dirty || hasCommit) && specsForm.height.$invalid }">
+            <input class="form-control" name="height" ng-model="product.skus[0].height" placeholder="高(厘米)"
+                   validate-float ng-required="product.skuType == 0"/>
+            <div class="help-block"
+                 ng-show="(specsForm.height.$dirty || hasCommit) && specsForm.height.$invalid">
+                <span ng-show="specsForm.height.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.height.$error.float">
+                    请输入有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.weight.$dirty || hasCommit) && specsForm.weight.$invalid}">
+        <label class="col-sm-4 control-label">&lowast; 重量(kg):</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="weight" ng-model="product.skus[0].weight" placeholder="重量(千克)"
+                   validate-float ng-required="product.skuType == 0"/>
+
+            <div class="help-block"
+                 ng-show="(specsForm.weight.$dirty || hasCommit) && specsForm.weight.$invalid">
+                <span ng-show="specsForm.weight.$error.required">
+                    必填
+                </span>
+                <span ng-show="specsForm.weight.$error.float">
+                    请输入有效的正浮点数(最多两位小数)
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.barCode.$dirty || hasCommit) && specsForm.barCode.$invalid}">
+        <label class="col-sm-4 control-label">条形码:</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="barCode" ng-model="product.skus[0].barCode"
+                   placeholder="请输入条形码,例如'6901294179888'"
+                   ng-maxlength="30"
+                   />
+
+            <div class="help-block"
+                 ng-show="(specsForm.barCode.$dirty || hasCommit) && specsForm.barCode.$invalid">
+                <span ng-show="specsForm.barCode.$error.maxlength">
+                    条形码不能超过30个字符
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.model.$dirty || hasCommit) && specsForm.model.$invalid }">
+        <label class="col-sm-4 control-label">商品型号:</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="model" ng-model="product.skus[0].model"
+                   placeholder="请输入商品在贵公司的型号,例如'M780'"
+                   ng-maxlength="30" />
+
+            <div class="help-block"
+                 ng-show="(specsForm.model.$dirty || hasCommit) && specsForm.model.$invalid">
+                <span ng-show="specsForm.model.$error.maxlength">
+                    型号不能超过30个字符
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+    <div class="form-group" ng-class="{ 'has-error': (specsForm.mftProductCode.$dirty || hasCommit) && specsForm.mftProductCode.$invalid }">
+        <label class="col-sm-4 control-label">商家编码:</label>
+
+        <div class="col-sm-6">
+            <input class="form-control" name="mftProductCode" ng-model="product.skus[0].mftProductCode"
+                   placeholder="请输入商品在贵公司系统中的编码,例如'TGH375'"
+                   ng-maxlength="30" />
+
+            <div class="help-block"
+                 ng-show="(specsForm.mftProductCode.$dirty || hasCommit) && specsForm.mftProductCode.$invalid">
+                <span ng-show="specsForm.mftProductCode.$error.maxlength">
+                    商家编码不能超过30个字符
+                </span>
+            </div>
+            <!-- /.help-block-->
+        </div>
+    </div>
+    <!-- /.form-group -->
+
+</div>

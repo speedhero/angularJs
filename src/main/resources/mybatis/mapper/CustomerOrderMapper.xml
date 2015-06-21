@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yejq.core.mapper.CustomerOrderMapper" >
+  <resultMap id="BaseResultMap" type="CustomerOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, order_id
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="customSelect" parameterType="map" resultType="hashmap">
+    select ${outColumns} from customer_order where ${keyColumn} = #{keyValue} limit 1
+  </select>
+  <insert id="save" parameterType="CustomerOrder" useGeneratedKeys="true" keyProperty="id"  keyColumn="id">
+    insert into customer_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">  
+    	SELECT LAST_INSERT_ID();  
+    </selectKey>
+  </insert>
+  <update id="update" parameterType="CustomerOrder" >
+    update customer_order
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="saveBatch" parameterType="java.util.List" >
+    insert into customer_order (customer_id, order_id) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <choose>
+          <when test="item.customerId == null">0,</when>
+          <otherwise>#{item.customerId},</otherwise>
+        </choose>
+        <choose>
+          <when test="item.orderId == null">0,</when>
+          <otherwise>#{item.orderId},</otherwise>
+        </choose>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,160 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        详细描述
+        <div class="pull-right">
+            <span class="glyphicon glyphicon-info-sign"></span>最多{{MAX_UPLOAD_DESC_GROUP_LIMIT}}个图片组，每个图片组至少上传1张，最多{{MAX_UPLOAD_DESC_IMAGE_LIMIT}}张，支持 jpg、jpeg、png、gif 格式，单张容量最大1024KB，宽度为750像素，高度不限。
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-24">
+                <!--{{product.descImages | json}}-->
+                <div class="alert alert-info" ng-show="product.descImages.length == 0">
+                    <p>
+                        <span class="glyphicon glyphicon-info-sign"></span>亲,飞飞商城的详细描述是按照图片组进行组织，每个图片组由若干图片构成的。
+                        <br/>最多{{MAX_UPLOAD_DESC_GROUP_LIMIT}}个图片组，每个图片组至少上传1张，最多{{MAX_UPLOAD_DESC_IMAGE_LIMIT}}张，支持 jpg、jpeg、png、gif 格式，单张容量最大1024KB，宽度为750像素，高度不限。
+                        <br/>请不要在图片上添加除商品外的其他信息，诸如水印、商标等，一经发现将严加处理。
+                    </p>
+                    <p>
+                        <a tabindex="10" class="btn btn-primary" id="addFirstImageGroupBtn" ng-click="addImageGroup()" >
+                            <span class="glyphicon glyphicon-picture"></span>&nbsp; 添加第一个图片组
+                        </a>
+                    </p>
+                </div>
+
+                <div class="row" ng-repeat="imageGroup in product.descImages">
+                    <div class="col-sm-24">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="image-group">
+                                    <div class="row" ng-show="imageGroup.items.length == 0">
+                                        <div class="col-sm-24">
+                                            <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>
+                                                请上传此图片组的图片。至少上传1张，最多上传{{MAX_UPLOAD_DESC_IMAGE_LIMIT}}张，支持 jpg、jpeg、png、gif 格式，单张容量最大1024KB，宽度为750像素，高度不限。
+                                                <br/>请不要在图片上添加除商品外的其他信息，诸如水印、商标等，一经发现将严加处理。
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="btn btn-primary btn-file" ng-show="!imageGroup.uploading" >
+                                                        <span class="glyphicon glyphicon-picture" tabindex="100{{$index}}"  id="uploadFirstDescImageBtn-{{$index}}"></span>&nbsp; 上传此图片组的第一个图
+                                                        <input type="file" multiple ng-file-select="uploadDescImage($files, $index)"
+                                                               accept="image/*" onclick="this.value=null">
+                                                    </div>
+                                                    <div class="progress" ng-show="imageGroup.uploading">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{imageGroup.uploadPercent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{imageGroup.uploadPercent}}%;">
+                                                            {{imageGroup.uploadPercent}}%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-sm-6  -->
+                                            </div>
+                                            <!-- /.row  -->
+                                        </div>
+                                        <!-- /.col-sm-24  -->
+                                    </div>
+                                    <!-- /.row  -->
+
+                                    <div  class="row" ng-show="imageGroup.items.length != 0">
+                                        <div class="col-sm-4" ng-repeat="image in imageGroup.items">
+                                            <div class="panel panel-default panel-custom">
+                                                <div class="panel-body text-center">
+                                                    <img width="150" height="150" border="0" ng-src="{{image.url}}">
+                                                </div>
+                                                <!-- /.panel-heading  -->
+                                                <div class="panel-footer">
+                                                    <div class="btn-group pull-right">
+                                                        <a title="左移" class="btn btn-default" ng-show="!$first" ng-click="moveDescImage($parent.$index, $index,$index-1)"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                                        <a title="右移" class="btn btn-default" ng-show="!$last" ng-click="moveDescImage($parent.$index, $index,$index+1)"><span class="glyphicon glyphicon-arrow-right"></span></a>
+                                                        <a title="删除" class="btn btn-danger" ng-click="deleteDescImage($parent.$index, $index,this)"><span class="glyphicon glyphicon-remove"></span></a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <!-- /.panel-footer  -->
+                                            </div>
+                                            <!-- /.panel  -->
+                                        </div>
+                                        <!-- /.col-sm-4  -->
+
+                                        <div class="col-sm-6" ng-show="(imageGroup.items.length < MAX_UPLOAD_DESC_IMAGE_LIMIT)" >
+                                            <div class="alert alert-info">
+                                                <p>
+                                                    <span class="glyphicon glyphicon glyphicon-paperclip"></span>还可以上传{{MAX_UPLOAD_DESC_IMAGE_LIMIT - imageGroup.items.length}}张详情图。
+                                                </p>
+                                                <p>
+                                                    <div class="btn btn-primary btn-file" ng-show="!imageGroup.uploading">
+                                                           <span class="glyphicon glyphicon-picture"></span>&nbsp; 上传新的详情图
+                                                           <input type="file" multiple ng-file-select="uploadDescImage($files, $index)" id="uploadDescImageBtn-{{$index}}"
+                                                                  accept="image/*" onclick="this.value=null">
+                                                    </div>
+                                                    <div class="progress" ng-show="imageGroup.uploading">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{imageGroup.uploadPercent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{imageGroup.uploadPercent}}%;">
+                                                            {{imageGroup.uploadPercent}}%
+                                                        </div>
+                                                    </div>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.col-sm-4  -->
+
+                                    </div>
+                                    <!-- /.row (nested) -->
+                                </div>
+                                <!--/.image-group-->
+                            </div>
+                            <!-- /.panel-heading  -->
+                            <div class="panel-footer">
+                                <div class="pull-left" style="width:600px;">
+                                    <ng-form name="imageGroupForm" >
+                                        <div class="form-group" ng-class="{ 'has-error': (imageGroupForm.tags.$dirty || hasCommit) && imageGroupForm.tags.$invalid }">
+                                            <label class="col-sm-4 control-label">&lowast; 图片组{{$index+1}}:</label>
+                                            <div class="col-sm-20">
+                                                <input class="form-control"   ng-model="imageGroup.tag" name="tags"
+                                                       placeholder="请添加一句2-10字的描述，例如'商品参数',''建议搭配''"
+                                                       ng-minlength="2"  ng-maxlength="10" required />
+
+                                                <div class="help-block"
+                                                     ng-show="(imageGroupForm.tags.$dirty || hasCommit) && imageGroupForm.tags.$invalid">
+                                                    <span ng-show="imageGroupForm.tags.$error.required">
+                                                        必填
+                                                    </span>
+                                                    <span ng-show="imageGroupForm.tags.$error.minlength">
+                                                        描述不能少于2个字符
+                                                    </span>
+                                                    <span ng-show="imageGroupForm.tags.$error.maxlength">
+                                                        描述不能超过10个字符
+                                                    </span>
+                                                </div>
+                                                <!-- /.help-block-->
+                                            </div>
+
+                                        </div>
+                                        <!-- /.form-group  -->
+                                    </ng-form>
+                                    <!-- /.ng-form  -->
+                                </div>
+                                <div class="btn-group pull-right">
+                                    <a class="btn btn-default" ng-show="!$first" ng-click="moveImageGroup($index,$index-1)"><span class="glyphicon glyphicon-arrow-up"></span>&nbsp; 上移</a>
+                                    <a class="btn btn-default" ng-show="!$last" ng-click="moveImageGroup($index,$index+1)"><span class="glyphicon glyphicon-arrow-down"></span>&nbsp; 下移</a>
+                                    <a class="btn btn-default" ng-show="!$first" ng-click="moveImageGroup($index,0)"><span class="glyphicon glyphicon-open"></span>&nbsp; 移到最前</a>
+                                    <a class="btn btn-default" ng-show="!$last" ng-click="moveImageGroup($index, $product.descImages.length-1)"><span class="glyphicon glyphicon-save"></span>&nbsp; 移到最后</a>
+                                    <a class="btn btn-danger" ng-click="deleteImageGroup($index)"><span class="glyphicon glyphicon-remove"></span>&nbsp; 删除图片组</a>
+                                    <a class="btn btn-primary"  ng-show="(product.descImages.length < MAX_UPLOAD_DESC_GROUP_LIMIT) && $last" ng-click="addImageGroup()"><span class="glyphicon glyphicon-picture"></span>&nbsp; 增加图片组</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- /.panel-footer  -->
+                        </div>
+                        <!-- /.panel  -->
+                    </div>
+                    <!-- /.col-sm-16  -->
+                </div>
+                <!-- /.row  -->
+
+            </div>
+        </div>
+        <!-- /.row (nested) -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->

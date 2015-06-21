@@ -1,0 +1,169 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        物流配送
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-24">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">&lowast; 运费:</label>
+
+                    <div class="col-sm-20">
+                        <label class="radio-inline">
+                            <input type="radio" value="1" ng-selected="product.whoPayCarriage == 1"
+                                   ng-model="product.whoPayCarriage"/>卖家承担运费
+                        </label>
+
+                        <div class="clearfix"/>
+                        <label class="radio-inline">
+                            <input type="radio" value="2" ng-selected="product.whoPayCarriage == 2"
+                                   ng-model="product.whoPayCarriage"/>买家承担运费
+                        </label>
+
+                        <div class="clearfix"/>
+                        <br/>
+
+                        <div ng-show="product.whoPayCarriage == 2">
+                            <div class="row row-custom">
+                                <div class="col-sm-10">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': (specsForm.logisticsTemplate.$dirty || hasCommit) && specsForm.logisticsTemplate.$invalid }">
+                                        <div class="col-sm-24">
+                                            <div class="row">
+                                                <div class="col-sm-15">
+                                                    <select class="form-control" name="logisticsTemplate"
+                                                            ng-model="product.logisticsTemplateId"
+                                                            ng-options="template.transFeeTempId as template.transFeeTempName for template in logisticsTemplates"
+                                                            ng-required="product.whoPayCarriage == 2">
+                                                        <option value="">--- 请选择运费模板 ---</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="form-control-static">
+                                                        <a href="" ng-click="showAddLogisticsTemplateModal()"><span class="glyphicon glyphicon-globe"></span>&nbsp;添加运费模板</a>
+                                                    </p>
+                                                </div>
+                                             </div>
+                                            <div class="row">
+                                                <div class="help-block"
+                                                     ng-show="(specsForm.logisticsTemplate.$dirty || hasCommit) && specsForm.logisticsTemplate.$invalid">
+                                                <span ng-show="specsForm.logisticsTemplate.$error.required">
+                                                    运费模板必填
+                                                </span>
+                                                </div>
+                                                <!-- ./help-block-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+
+
+                            <div class="row row-custom">
+                                <div class="col-sm-15">
+                                    <table class="table table-bordered table-custom" ng-style="getLogisticsTableStyle()">
+                                        <thead>
+                                        <tr>
+                                            <th width="100px" ng-repeat="spec in specs | filter:isSpecChecked">
+                                                {{spec.name}}
+                                            </th>
+                                            <th width="230px">&lowast; 物流重量(kg)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="sku in product.skus">
+                                            <!-- ===规格值=== -->
+                                            <td ng-repeat="spec in specs | filter:isSpecChecked">
+                                                {{getOptionRealName(sku.specs[spec.id+''])}}
+                                            </td>
+                                            <td>
+                                                <div class="form-inline">
+                                                    <ng-form name="skuCarriageForm">
+
+                                                        <div class="form-group"
+                                                             ng-class="{ 'has-error': (skuCarriageForm.skuCarriages.$dirty || hasCommit) && skuCarriageForm.skuCarriages.$invalid }">
+                                                            <label>
+                                                                <input type="text" ng-model="sku.carriage"
+                                                                       name="skuCarriages" class="form-control"
+                                                                       validate-float
+                                                                       ng-required="product.whoPayCarriage == 2"/>
+                                                            </label>
+
+
+                                                            <div class="btn-group" ng-show="product.skus.length > 1">
+                                                                <a class="btn btn-primary dropdown-toggle"
+                                                                   data-toggle="dropdown">
+                                                                    <span class="caret"></span>
+                                                                </a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a href="javascript:void(0)"
+                                                                           ng-click="applyToAllSku('carriage',sku.carriage)">应用到所有规格</a>
+                                                                    </li>
+                                                                    <li><a href="javascript:void(0)"
+                                                                           ng-click="applyToNotInputSku('carriage',sku.carriage)">应用到未填规格</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="help-block"
+                                                                 ng-show="(skuCarriageForm.skuCarriages.$dirty || hasCommit) && skuCarriageForm.skuCarriages.$invalid">
+                                                                <span ng-show="skuCarriageForm.skuCarriages.$error.required">
+                                                                    必填
+                                                                </span>
+                                                                <span ng-show="skuCarriageForm.skuCarriages.$error.float">
+                                                                    请输入有效的正浮点数(最多两位小数)
+                                                                </span>
+                                                            </div>
+                                                            <!-- /.help-block-->
+                                                        </div>
+
+                                                    </ng-form>
+                                                    <!--/ng-form-->
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.运费模板 -->
+
+
+                    </div>
+                    <!-- /.col-sm-20 -->
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group"
+                     ng-class="{ 'has-error': specsForm.shipRegionRemark.$invalid && !specsForm.shipRegionRemark.$pristine }">
+                    <label class="col-sm-4 control-label">配送地区备注:</label>
+
+                    <div class="col-sm-20">
+                        <textarea class="form-control" rows="3" ng-model="product.shipRegionRemark" name="shipRegionRemark"
+                                  placeholder="请填写配送地区备注"
+                                  ng-maxlength="80"></textarea>
+
+                        <div class="help-block"
+                            <span ng-show="specsForm.shipRegionRemark.$error.maxlength">
+                                配送地区备注不能超过80个字符
+                            </span>
+                    </div>
+
+                    <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>对配送地区有特别要求的，请填写备注，将展示在商品详情，让买家更清楚，减少纠纷。
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /col-lg-24-->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->

@@ -1,0 +1,17 @@
+<!-- 退货原因 详情-->
+<div style="width:440px;">
+    <ul class="list-unstyled" style="width:400px;">
+        <li ng-if="returnReason.description">
+            <strong>原因描述：</strong>{{returnReason.description}}
+        </li>
+        <li ng-if="!returnReason.description">
+            暂时没有数据
+        </li>
+    </ul>
+    <ul class="list-unstyled list-inline" ng-if="returnReason.imgUrls && returnReason.imgUrls.length > 0" style="width:420px;">
+        <li ng-repeat="img in returnReason.imgUrls">
+            <img style="width:200px;height:150px;"ng-src="{{img.url}}">
+            <hr ng-if="$odd || $index > 2" style="margin:3px;">
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,87 @@
+<!--补发-->
+<div class="table-responsive">
+    <table class="table-info table-condensed     table table-custom">
+        <thead>
+            <tr class="text-center">
+                <!--<th class="text-center">#</th>-->
+                <th class="text-center">订单编号</th>
+                <th style="border-left:none;" class="text-center">商品明细</th>
+                <th  class="text-center">下单时间</th>
+                <th class="text-center">
+                    当前状态
+                    <select ng-model="selectedStatus" ng-change="statusChange(selectedStatus)" ng-options="item.label for item in _refundConstants.refundType[currentTab-1].refundStatus">
+                        <option value="" selected>全部</option>
+                    </select>
+                </th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+
+        <tbody ng-table="refundTableParams" id="refundRedeliverTable" class="table table-condensed">
+            <tr class="text-center" ng-repeat="r in $data">
+                <!--<td>-->
+                    <!--<input type="checkbox">-->
+                <!--</td>-->
+                <td style="width:120px;">
+                    <span>
+                        <a href="javascript:void(0)" ng-click="showDetail(r.returnNo);">{{r.salesOrderNo}}</a>
+                    </span>
+                </td>
+                <td class="text-left" style="position: relative;border-left:none;">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="item in r.orderReturnSkuDTOs">
+                            <div ng-show="isShowOtherSkus(r,$index);" style="padding-top:6px;padding-bottom: 6px;">
+                                <a target="_blank" ng-href="http://item.feifei.com/{{item.skuNumber}}.html">
+                                    <b class="ng-binding">{{item.skuName}}</b>
+                                </a>
+                                <ul class="list-unstyled">
+                                    <li>SKU：{{item.skuNumber}}</li>
+                                    <li>数量：{{item.quantity}}</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <div ng-if="r.orderReturnSkuDTOs.length > 1" style="position: absolute;bottom:10px;right:18px;">
+                        <a href="" ng-click="showOtherSkus(r)" ng-if="!isShowOtherSkus(r)"><i class="fa fa-caret-down"></i>显示全部商品</a>
+                        <a href="" ng-click="hideOtherSkus(r)" ng-if="isShowOtherSkus(r)"><i class="fa fa-caret-up"></i>隐藏其他商品</a>
+                        (共{{r.orderReturnSkuDTOs.length}}个)
+                    </div>
+                </td>
+                <td style="width:150px;">
+                    {{r.createTime | date:"yyyy-MM-dd HH:mm:ss"}}
+                </td>
+                <td style="width:150px;">
+                    <span>{{r.foregroundStatusDesc}}</span>
+                </td>
+                <td style="width:120px;">
+                    <div class="btn-group-vertical btn-block">
+                        <a type="button"
+                                ng-click="showDetail(r.returnNo);"
+                                class="btn btn-default"
+                                >
+                            查看详情
+                        </a>
+                        <!--   -->
+                        <button ng-if="r.foregroundStatusDesc === '待受理' " ng-click="agreeDontNeedReceive(r.returnNo);"
+                                type="button"
+                                class="btn btn-default"
+                                >
+                            同意
+                        </button>
+                        <!--  -->
+                        <button ng-if="r.foregroundStatusDesc === '待补发' "  type="button"
+                                data-toggle="modal" data-target="#reDeliverModal" ng-click="openDeliverModal(r.resendAddressDTO,r.returnNo)"
+                                class="btn btn-default"
+                                >
+                            已补发
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- 已补发模态框 -->
+<div ng-include="templates.reDeliverModal"/>
+
+ 

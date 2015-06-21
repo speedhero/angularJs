@@ -1,0 +1,77 @@
+<!-- 已重发模态框 -->
+<div class="modal fade" id="reDeliverModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">订单重发货</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" name="form" >
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label">收货人：</label>
+                            <div class="col-sm-16">
+                                <p class="form-control-static">{{resendAddressDTO.contactPerson}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label">收货地址：</label>
+                            <div class="col-sm-16">
+                                <p class="form-control-static">{{resendAddressDTO.country+resendAddressDTO.state+resendAddressDTO.city+resendAddressDTO.area+resendAddressDTO.contactAddress}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label">联系方式：</label>
+                            <div class="col-sm-16">
+                                <p class="form-control-static">{{resendAddressDTO.contactTel}}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="col-lg-6 control-label">收货时间：</label>
+                            <div class="col-sm-15">
+                                <p class="form-control-static">{{resendAddressDTO.contactNote}}</p>
+                            </div>
+                        </div> -->
+                        <div class="well col-lg-24">
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label">&lowast; 物流/快递公司：</label>
+                                <div class="col-lg-16">
+                                    <select class="form-control" name="company" ng-model="deliverInfo.logisticsCompany" required ng-options="item.name for item in logisticsCompany">
+                                        <option value="">-------请选择物流/快递公司-------</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-class="{ 'has-error': form.trackingNo.$dirty && form.trackingNo.$invalid }">
+                                <label class="col-lg-8 control-label">&lowast; 运单号：</label>
+                                <div class="col-lg-16">
+                                    <div style="position:relative">
+                                        <div class="largerView">{{formattedOutputNumber(deliverInfo.trackingNo)}}</div>
+                                        <input typ="text" ng-maxlength="40" class="form-control" ng-pattern="/^[A-Za-z0-9]+$/" name="trackingNo" ng-model="deliverInfo.trackingNo" required
+                                               ng-focus="trackingNoOnFocus4List($event)" ng-blur="trackingNoOnBlur4List($event)"/>
+                                        <div class="help-block" ng-show="(form.trackingNo.$dirty ) && form.trackingNo.$invalid">
+                                        <span ng-show="form.trackingNo.$error.required">
+                                        运单号不可为空
+                                        </span>
+                                        <span ng-show="form.trackingNo.$invalid &&!form.trackingNo.$error.required">
+                                        只允许输入字母和数字
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-8 col-lg-10">
+                                    <button class="btn btn-primary form-control" type="submit" ng-disabled="form.$invalid" ng-click="redeliver(deliverInfo)">重发商品</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

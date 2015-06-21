@@ -1,0 +1,83 @@
+ <div style="width:400px;">
+        <ul class="list-unstyled" ng-show="billInfo.type == 0">
+            <li>
+                <div>
+                    发票类型：普通发票
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    发票抬头：
+                    <span ng-if="billInfo.title==0">个人</span>
+                    <span ng-if="billInfo.title==1">单位</span>
+                </div>
+                <br>
+            </li>
+            <li ng-if="billInfo.title==1">
+                <div>
+                    单位名称：{{billInfo.company}}
+                </div>
+                <br>
+            </li>
+            <li >
+                <div>
+                    发票内容：
+                    {{ billInfo.itemContent | invoiceItemContent}}
+                </div>
+                <br>
+            </li> 
+        </ul>
+        <!-- 增值税发票 -->
+        <ul class="list-unstyled" ng-show="billInfo.type == 1">
+            <li>
+                <div>
+                    发票类型：增值税发票
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    单位名称：{{billInfo.company}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    纳税人识别号：{{billInfo.taxPayerId}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    注册地址：{{billInfo.registerAddress}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    注册电话：{{billInfo.phone}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    开户银行：{{billInfo.bankName}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    银行账户：{{billInfo.bankAccount}}
+                </div>
+                <br>
+            </li>
+            <li>
+                <div>
+                    发票内容：
+                    {{ billInfo.itemContent | invoiceItemContent}}
+                </div>
+                <br>
+            </li>
+        </ul>
+    </div>

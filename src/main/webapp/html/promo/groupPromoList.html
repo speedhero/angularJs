@@ -1,0 +1,47 @@
+<div class="groupPromoList">
+    <div class="loading" ng-if="!$loadedGroupPromos"></div>
+    <!-- /.loading -->
+
+    <p ng-if="$loadedGroupPromos && (models.length == 0)">
+        暂无任何推荐组合。
+    </p>
+    <!-- Nav tabs -->
+    <ul class="group-nav" ng-if="models.length > 0">
+        <li ng-class="{'active':$index == activeGroupPromoIndex}" ng-repeat="groupPromo in models">
+            <a href="" class="nav-btn" ng-if="!$first" ng-click="moveGroupPromo($index,$index-1)"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+            <a href="" class="text-btn" href="" ng-click="showGroupPromo($index)">{{groupPromo.groupName}}</a>
+
+            <a href="" class="nav-btn" ng-if="!$last" ng-click="moveGroupPromo($index,$index+1)"><span class="glyphicon glyphicon-arrow-right"></span></a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" ng-if="models.length > 0">
+        <div class="tab-pane fade" ng-class="{'active in':$index == activeGroupPromoIndex}" ng-repeat="groupPromo in models">
+
+            <div class="row">
+                <div class="col-sm-1 product-box" ng-repeat-start="item in groupPromo.list">
+                    <i class="fa fa-plus" ng-if="!$first"></i>
+                </div>
+                <div class="col-sm-4 product-box" ng-repeat-end>
+                    <img ng-src="{{getProdImageUrl(item.image)}}"/>
+                    <div class="detail">
+                        <b class="name">{{item.productName}}</b>
+                        <ul class="list-unstyled">
+                            <li>SKU:  {{item.skuCode}}</li>
+                            <li>型号: {{item.model}}</li>
+                            <li>飞飞价: {{item.price | currency:' &yen;'}}</li>
+                            <li><b>搭配价: {{item.promoPrice | currency:' &yen;'}}</b></li>
+                            <li class="text-danger" ng-if="item.status == 2"><b>此商品已下架</b></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4 pull-right btn-box">
+                    <a href="" class="btn btn-default" ng-click="editDetail($currSkuId, groupPromo.id)"><i class="fa fa-pencil"></i> 修改</a>
+                    <a href="" class="btn btn-default" ng-click="removePromoGroup(groupPromo.id, $index)"><i class="fa fa-remove"></i> 删除</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

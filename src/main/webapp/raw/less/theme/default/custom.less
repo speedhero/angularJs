@@ -1,0 +1,1847 @@
+// Global Styles
+@side-bar-width : 180px;
+
+body {
+    background-color: @gray-lightest;
+}
+
+// Wrappers
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    padding: 0 15px;
+    min-height: 568px;
+    background-color: white;
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 @side-bar-width;
+        padding: 0 30px;
+        border-left: 1px solid darken(@gray-lightest, 6.5%);
+    }
+}
+
+// Navigation
+
+// --Topbar
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+
+.navbar-mvo{
+
+    .navbar-header{
+        width:210px;
+        a{
+            font-family: YouYuan;
+            font-weight: 800;
+            font-size: 25px;
+        }
+    }
+
+    .navbar-userinfo{
+        float : right;
+        a{
+            font-size: 15px;
+        }
+    }
+
+    .navbar-nav{
+        font-size:16px;
+    }
+    .nav{
+        li{
+            a{
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+        }
+    }
+
+    .dropdown{
+        a.dropdown-toggle {
+            color : #fff;
+            &:hover,
+            &:focus {
+                background-color: @brand-primary;
+            }
+        }
+    }
+
+}
+// --Sidebar
+
+.sidebar {
+    .sidebar-nav.navbar-collapse {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul{
+    li {
+        border-bottom: 1px solid darken(@gray-lightest, 6.5%);
+        a {
+            &.active {
+                background-color: #fff;
+            }
+        }
+        &.active {
+            left:1px;
+        }
+    }
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active > a > .fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: none !important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: @side-bar-width;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+
+// Buttons
+
+.btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: @brand-primary;
+}
+
+.btn-success.btn-outline {
+    color: @brand-success;
+}
+
+.btn-info.btn-outline {
+    color: @brand-info;
+}
+
+.btn-warning.btn-outline {
+    color: @brand-warning;
+}
+
+.btn-danger.btn-outline {
+    color: @brand-danger;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: white;
+}
+
+// Chat Widget
+
+.chat {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted @gray-light;
+}
+
+.chat li.left .chat-body {
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body {
+    margin-right: 60px;
+}
+
+.chat li .chat-body p {
+    margin: 0;
+}
+
+.panel .slidedown .glyphicon,
+.chat .glyphicon {
+    margin-right: 5px;
+}
+
+.chat-panel .panel-body {
+    height: 350px;
+    overflow-y: scroll;
+}
+
+
+
+// Flot Charts Containers
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+// DataTables Overrides
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    background: transparent;
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "\f0de";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "\f0dd";
+    float: right;
+    font-family: fontawesome;
+}
+
+table.dataTable thead .sorting:after {
+    content: "\f0dc";
+    float: right;
+    font-family: fontawesome;
+    color: rgba(50,50,50,.5);
+}
+
+// Circle Buttons 
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-size: 18px;
+    line-height: 1.33;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+// Grid Demo Elements
+
+.show-grid [class^="col-"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #eee !important;
+}
+
+.show-grid {
+    margin: 15px 0;
+}
+
+// Custom Colored Panels
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: @brand-success;
+    .panel-heading {
+        border-color: @brand-success;
+        color: white;
+        background-color: @brand-success;
+    }
+    a {
+        color: @brand-success;
+        &:hover {
+            color: darken(@brand-success, 15%);
+        }
+    }
+}
+
+.panel-red {
+    border-color: @brand-danger;
+    .panel-heading {
+        border-color: @brand-danger;
+        color: white;
+        background-color: @brand-danger;
+    }
+    a {
+        color: @brand-danger;
+        &:hover {
+            color: darken(@brand-danger, 15%);
+        }
+    }
+}
+
+.panel-yellow {
+    border-color: @brand-warning;
+    .panel-heading {
+        border-color: @brand-warning;
+        color: white;
+        background-color: @brand-warning;
+    }
+    a {
+        color: @brand-warning;
+        &:hover {
+            color: darken(@brand-warning, 15%);
+        }
+    }
+}
+
+
+// 商品创建和编辑form
+#productCreateForm,#productEditForm {
+    .btn-group {
+        .form-control-feedback {
+            top: 0;
+            right: -30px;
+        }
+    }
+    .form-group-nest{
+        margin-bottom : 0px;
+    }
+
+    .sku-table-container{
+        overflow-x: scroll;
+    }
+    .row-custom{
+        table{
+            label{
+                font-weight : normal;
+            }
+            .form-inline{
+
+                .form-control-feedback {
+                    top: 2px !important;
+                    right: 35px;
+                }
+            }
+            .form-inline-multi{
+                .form-control-feedback {
+                    right: 0px;
+                }
+            }
+        }
+        .table-custom{
+            th,td{
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+    }
+
+    .label-custom{
+        margin-top:7px;
+        text-align:center;
+        display:block;
+    }
+
+    .fix_btn_bar{
+        position: fixed;
+        width: 100%;
+        bottom: 40px;
+        right: 15px;
+    }
+
+    .panel-footer{
+        .form-group{
+            margin-bottom: 0px;
+        }
+    }
+
+
+}
+
+//添加运费模板对话框
+#addLogisticsTemplateModal{
+    .breadcrumb{
+        display : none;
+    }
+
+    #logisticsDetail{
+        .panel{
+            border : 0px;
+            .box-shadow(inset 0 0 0 rgba(0,0,0,0));
+            .panel-heading{
+                display : none;
+            }
+            .panel-body{
+                padding-bottom : 0px;
+            }
+            #submitBtn{
+                display : none;
+            }
+        }
+
+    }
+}
+
+//商品创建选择规格窗口
+.specsOptionList{
+    .editable-div{
+        .checkbox-inline{
+            padding-left: 0px;
+        }
+        .editable-wrap{
+            margin-top: -3px;
+            margin-left : 12px;
+            margin-right : 12px;
+
+            .editable-input{
+                width : 100px;
+            }
+        }
+
+    }
+}
+
+.panel-custom{
+    border : 1px dashed transparent;
+    .panel-heading{
+        border : 1px dashed transparent
+    }
+    .form-group {
+        margin-right: 5px;
+    }
+    .btn-group{
+
+    }
+}
+
+//搜索panel样式
+.panel-search{
+    border-left: 0px;
+    border-right: 0px;
+    border-style: dashed;
+    .panel-body{
+        padding-bottom: 0px;
+    }
+}
+
+//搜索panel样式
+.panel-search-in-modal{
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-style: dashed;
+    .panel-body{
+        padding: 0px 15px;
+    }
+}
+
+//列表的panel
+.panel-list-page{
+    .navbar-btn{
+        margin-left : 2px;
+    }
+    .panel-body{
+        padding:0px 15px;
+    }
+    .panel-heading{
+        padding:0px 15px;
+    }
+    .panel-footer{
+        padding: 0px 15px;
+    }
+
+
+}
+
+.panel-consultList{
+    .ask, .answer{
+        padding: 10px 2px;
+    }
+    .answer{
+        border-top: 1px dotted @gray-dark;
+        .content{
+            color:@brand-primary;
+        }
+    }
+}
+
+p.broad{
+    padding: 15px;
+}
+
+//自定义表格
+.table-custom{
+    margin-bottom : 0px;
+    > thead{
+        > tr {
+            > th,
+            > td {
+                height:30px;
+            }
+        }
+    }
+    > tbody{
+        > tr {
+            > th,
+            > td {
+                vertical-align: middle;
+                height:80px;
+                border-top-style: dashed;
+            }
+        }
+    }
+
+    .editable-input{
+        width:80px;
+    }
+
+    .help-block{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+// 自定义分页box
+.pagination-box {
+    .pagination{
+        margin:8px 0 8px 0
+    }
+    .pagination-info {
+        margin:8px 0 8px 0;
+        .text{
+            margin:7px 5px 0 0;
+            text-align: right;
+            font-weight: 700;
+        }
+
+    }
+}
+
+//自定义分页box2
+.pagination-cool{
+    .pagination{
+        margin:0px;
+        li{
+            a{
+                padding:10px 12px;
+                border:0px;
+            }
+        }
+    }
+    .page-control{
+        a.go{
+            padding: 9px 12px;
+            .input-group{
+                width:87px;
+                .form-control{
+                    height:22px;
+                }
+                .input-group-btn{
+                    .btn{
+                        height: 22px;
+                        padding: 0px 6px;
+                    }
+
+                }
+            }
+        }
+
+    }
+}
+
+
+//don't show ng-table default pagination
+.ng-table-pager {
+    display: none;
+}
+
+//用于观察对象
+.flow-console{
+    position: fixed;
+    height: 200px;
+    width: 1000px;
+    z-index: 200;
+    color: red;
+    background-color: yellow;
+}
+
+// mask for loading image
+// -----------------------
+#mask{
+    position: fixed;
+    top :50%;
+    left :45%;
+    z-index : 999999;
+}
+
+.bokeh {
+    font-size: 100px;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    border-radius: 50%;
+    border: .01em solid rgba(150,150,150,0.1);
+    list-style: none;
+
+    li {
+        position: absolute;
+        width: .2em;
+        height: .2em;
+        border-radius: 50%;
+    }
+
+    li:nth-child(1) {
+        left: 50%;
+        top: 0;
+        margin: 0 0 0 -.1em;
+        background: #00C176;
+        -webkit-transform-origin: 50% 250%;
+        transform-origin: 50% 250%;
+        -webkit-animation:
+        rota 1.13s linear infinite,
+        opa 3.67s ease-in-out infinite alternate;
+        animation:
+        rota 1.13s linear infinite,
+        opa 3.67s ease-in-out infinite alternate;
+    }
+
+    li:nth-child(2) {
+        top: 50%;
+        right: 0;
+        margin: -.1em 0 0 0;
+        background: #FF003C;
+        -webkit-transform-origin: -150% 50%;
+        transform-origin: -150% 50%;
+        -webkit-animation:
+        rota 1.86s linear infinite,
+        opa 4.29s ease-in-out infinite alternate;
+        animation:
+        rota 1.86s linear infinite,
+        opa 4.29s ease-in-out infinite alternate;
+    }
+
+    li:nth-child(3) {
+        left: 50%;
+        bottom: 0;
+        margin: 0 0 0 -.1em;
+        background: #FABE28;
+        -webkit-transform-origin: 50% -150%;
+        transform-origin: 50% -150%;
+        -webkit-animation:
+        rota 1.45s linear infinite,
+        opa 5.12s ease-in-out infinite alternate;
+        animation:
+        rota 1.45s linear infinite,
+        opa 5.12s ease-in-out infinite alternate;
+    }
+
+    li:nth-child(4) {
+        top: 50%;
+        left: 0;
+        margin: -.1em 0 0 0;
+        background: #88C100;
+        -webkit-transform-origin: 250% 50%;
+        transform-origin: 250% 50%;
+        -webkit-animation:
+        rota 1.72s linear infinite,
+        opa 5.25s ease-in-out infinite alternate;
+        animation:
+        rota 1.72s linear infinite,
+        opa 5.25s ease-in-out infinite alternate;
+    }
+}
+
+@-webkit-keyframes rota {
+    from { }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes rota {
+    from { }
+    to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+//-- style for file input
+//http://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3/
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+//-- for productEditPage
+.editPage{
+    .nav-custom{
+        position: relative;
+        top: 2px;
+    }
+    .panel-undertab{
+        border-top : 0px;
+        border :0px;
+
+        >.panel-body{
+            padding : 20px 0 15px 0;
+        }
+    }
+}
+
+
+// Login Page
+.login{
+
+    h1{
+        font-family: YouYuan;
+        font-size: 25px;
+    }
+    ul.list-inline{
+        margin-top: 20px;
+        margin-bottom: 10px;
+        li{
+            margin-left: 30px;
+        }
+    }
+
+    .row{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .login-body{
+        .banner-background{
+            background: url(/img/login/background3.jpg) center center no-repeat;
+            width: 100%;
+            height :330px;
+        }
+
+        .login-panel{
+            margin-top : 20px;
+
+            .form-error{
+                position: absolute;
+                background: #fff0f2;
+                color: #d72439;
+                left: -136px;
+                padding: 4px 10px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                min-width: 150px;
+                z-index: 3;
+                top: 2px;
+            }
+        }
+    }
+
+    .info-body{
+        padding-top :30px;
+        min-height: 400px;
+        .title{
+            margin-top: 10px;
+            border-bottom: 1px solid #bbb;
+        }
+        .content{
+            margin-top: 20px;
+
+            .list-unstyled{
+                .date{
+                    text-align :right
+                }
+            }
+
+            dl{
+                dt{
+                    font-weight: normal;
+                    padding:2px 0;
+                }
+                dd{
+                    font-weight: bold;
+                    font-size: 18px;
+                    padding:10px 0 10px 40px;
+                }
+            }
+        }
+
+    }
+
+}
+
+//发货单打印样式
+.printDeliverList {
+    width: 960px;
+    margin: 0 auto;
+    padding: 5px 0px 0px;
+    font-size: 10px;
+    .panel{
+        margin-bottom: 5px;
+    }
+
+    .summary{
+        table{
+            border:0px;
+        }
+    }
+    .detail{
+        table-layout: fixed;
+        thead{
+            tr{
+                th{
+                    text-align: center;
+                }
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    border:0px;
+                }
+            }
+        }
+    }
+
+    .fixed-width{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .logo {
+        width: 269px;
+        height: 100px;
+    }
+    .qrCode {
+        width: 100px;
+        height: 100px;
+    }
+    .bottomLogo {
+        width: 60px;
+        height: 60px;
+    }
+    .banner {
+        font-size: 14px;
+    }
+    table {
+        border: 0;
+    }
+
+}
+
+.wrap-print {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    z-index: 1000;
+    width: 100%;
+    height: 70px;
+    background: #eeeeee;
+    padding-top:10px;
+}
+
+@media print {
+    .notPrint {
+        display:none;
+    }
+}
+
+//打印分页
+.pageBreak {
+    page-break-after: always;
+}
+
+//倒计时
+.timecounter {
+    .panel-heading {
+        text-align: center;
+        .red {
+            color: red;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+    }
+}
+
+
+/**********************************
+ * 订单页面样式                   *
+ *********************************/
+
+//订单表格导航Tab样式
+.order-nav-table {
+    float:left !important;
+    width:700px !important;
+}
+//订单表格分页（上）
+.order-table-pagination{
+    float:right !important;
+    margin-top:-12px !important;
+    display:inline-block !important;
+}
+
+//订单表格的panel
+.order-table-panel{
+    //  .panel-heading{
+    //    border:none !important;
+    //  }
+}
+
+
+
+//订单表格操作按钮的样式
+.order-table-option-btn{
+    margin-bottom:4px !important;
+}
+//订单表格样式
+.order-table{
+    margin-left:0px !important;
+}
+
+//订单表格表头每行的样式
+.order-table > thead > tr{
+    font-size:1.15em !important;
+    color:#FFF;
+    background-color:@brand-primary !important;
+}
+
+
+/****订单详情订单跟踪样式****/
+
+//订单追踪样式
+.deliver-list-style{
+    width:7em !important;
+    padding-right:.5em !important;
+    padding-left:0 !important;
+}
+.deliver-list-well{
+    border:none !important;
+}
+.order-no-padding{
+    padding:0 !important;
+}
+//订单信息样式
+.order-info-well{
+    border:none !important;
+}
+
+.order-info-title{
+    display:block;
+    margin:0px 0px 10px 0px !important;
+}
+.order-info-content{
+    margin-bottom:0 !important;
+}
+.order-list{
+    padding: 0;
+    margin-left: 75%;
+}
+.order-list-text{
+    text-align: right;
+}
+.order-list-total{
+    font-size: large;
+    font-weight: 900;
+}
+/***进度条样式****/
+
+//圆点的半径
+@point-radius:40px;
+
+//激活颜色
+@order-progress-active-color:@brand-primary;
+
+//默认颜色
+@order-progress-default-color:#999999;
+
+//每段进度条的宽度
+@order-progress-strip-width:23.2%;
+@order-progress-strip-margintop:12px;
+
+//每段进度条距离的高度
+@order-progress-strip-height:15px;
+
+//默认的圆点
+.orderprogress-point{
+    border-radius:50%;
+    background-color:@order-progress-default-color;
+    width:@point-radius;
+    height:@point-radius;
+}
+
+//激活的圆点
+.orderprogress-point-active{
+    border-radius:50%;
+    background-color:@order-progress-active-color;
+    width:@point-radius;
+    height:@point-radius;
+}
+
+//默认的每一段进度条
+.orderprogress-strip{
+    width:@order-progress-strip-width;
+    height:@order-progress-strip-height;
+    margin-top:@order-progress-strip-margintop;
+    background-color:@order-progress-default-color;
+    border-radius:5px;
+}
+
+//激活的每一段进度条
+.orderprogress-strip-active{
+    width:@order-progress-strip-width;
+    height:@order-progress-strip-height;
+    margin-top:@order-progress-strip-margintop;
+    background-color:@order-progress-active-color;
+}
+//当前进度条激活状态的字体颜色
+.orderprogress-text-active{
+    color:@brand-primary;
+}
+
+/**********************************
+ * 账户页面样式                     *
+ *********************************/
+/****密码强度样式****/
+ul.password-strength {
+    display:inline;
+    list-style:none;
+    margin:0;
+    padding:0;
+    vertical-align:2px;
+}
+.password-strength-point:last {
+    margin:0 !important;
+}
+.password-strength-point {
+    background:#DDD;
+    border-radius:2px;
+    display:inline-block;
+    height:15px;
+    margin-right:5px;
+    width:80px;
+    text-align:center;
+    font-size:10px;
+}
+
+
+//-- 运费模板列表
+#logisticsList{
+    .panel-heading{
+        padding : 0px 15px;
+        .title{
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    }
+
+    .btn-bar{
+        margin-bottom:15px;
+    }
+}
+
+//-- 运费表格
+#logisticsDetail {
+    .panel-default {
+        .form-inline {
+            .form-group {
+                margin: 0;
+            }
+            input {
+                width: 100px;
+            }
+        }
+    }
+}
+
+//-- 地址列表
+#addressList{
+    .panel-heading{
+        padding : 0px 15px;
+        .title{
+            margin-top: 15px;
+        }
+    }
+
+    .btn-bar{
+        margin-bottom:15px;
+    }
+
+    table{
+        tr{
+            th,td{
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+
+.ngdialog.size-large {
+    .ngdialog-content {
+        width: 800px;
+    }
+}
+
+
+#refundDetail {
+    #handle {
+        .icon {
+            text-align: center;
+            .fa {
+                margin: 5px auto;
+            }
+        }
+        .title {
+            margin-top: 5px;
+        }
+    }
+}
+
+//四个Tab页面
+#refundChargeBackTable,#refundExchangeTable,#refundRedeliverTable,#refundReturnTable{
+    //隐藏四个Tab页面tbody里面的thead
+    thead{
+        display: none;
+    }
+    //隐藏边框
+    .table-noborder {
+        td {
+            border: none;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+
+//进度条
+.progressBar {
+    text-align: center;
+
+    .progress {
+        position: absolute;
+        top: 25px;
+        z-index: 1;
+    }
+
+    ul {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        z-index: 2;
+        li {
+            display: block;
+            float: left;
+
+            .number {
+                font-size: 25px;
+                border: 1px solid #ddd;
+                background-color: #fff;
+                border-radius: 25px;
+                height: 50px;
+                width: 50px;
+                line-height: 50px;
+                margin: 10px auto;
+            }
+
+            .text {
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .time {
+                color: #999;
+            }
+
+            &.active {
+                .number {
+                    background-color: #5cb85c;
+                }
+            }
+
+            &.current {
+                .text {
+                    color: #5cb85c;
+                }
+            }
+        }
+    }
+}
+
+
+//货品选择器
+.sku-selector{
+
+    .modal-xlg{
+        > .modal-content{
+            > .modal-body{
+                padding: 15px 15px 0px;
+            }
+        }
+    }
+    .search-area{
+        .panel-search-in-modal{
+            margin-bottom: 5px;
+        }
+    }
+
+    .list-area{
+        padding-left: 0px;
+
+        .panel-list-page{
+            .panel-heading{
+                padding: 1px 10px;
+            }
+        }
+
+        .table {
+            tr.active {
+                > td,
+                > th {
+                    background-color: @state-warning-bg;
+                }
+            }
+
+        }
+
+        .select-btn{
+            position: absolute;
+            height:34px;
+            bottom: 33px;
+            right: 10px;
+        }
+
+        .name{
+            max-height: 40px;
+            overflow-y: auto;
+            display: block;
+        }
+    }
+
+
+    .result-area{
+        padding-left: 0px;
+        .panel-body{
+            padding:3px;
+
+            .list{
+                overflow-y: auto;
+                height:565px;
+
+                .btn-area{
+                    position: absolute;
+                    top: -3px;
+                    left: 69px;
+                }
+
+                .name{
+                    max-height: 40px;
+                    overflow-y: auto;
+                    display: block;
+                }
+            }
+        }
+
+    }
+}
+
+//功能栏
+.functionBar{
+    position: relative;
+
+    //搜素控制样式
+    .searchBarControl{
+        position: absolute;
+        top: 8px;
+        right: 0px;
+    }
+
+}
+
+//组合促销
+.groupPromoBox{
+    margin-bottom: 30px;
+    border-bottom: 1px #000 dotted;
+    padding-bottom: 10px;
+}
+
+.groupPromoList{
+    .group-nav{
+        padding-left: 0;
+        margin-bottom: 0;
+        margin-left: 30px;
+        margin-right: 30px;
+        list-style: none;
+        border-bottom: 1px dotted #ddd;
+
+        &:extend(.clearfix all);
+
+        li{
+            display: block;
+            position: relative;
+            float: left;
+            padding: 12px;
+            border-radius: 4px 4px 0 0;
+            margin-bottom:-1px;
+            a{
+                margin:0px 3px 0px;
+
+                &:hover,&:focus{
+                    text-decoration: none;
+                }
+
+                &.nav-btn{
+                    padding: 10px 0px;
+                    visibility: hidden;
+                }
+
+                &.text-btn{
+                    padding: 10px 15px;
+                    &:first-child{
+                        margin-left:30px;
+                    }
+                    &:last-child{
+                        margin-right:30px;
+                    }
+                }
+            }
+
+
+
+            &:hover,&:focus{
+                background-color: #eee;
+                .nav-btn{
+                    visibility: visible;
+                }
+            }
+
+            &.active{
+                background-color:#fff;
+                border: 1px solid #ddd;
+                border-bottom-color: transparent;
+
+                a.text-btn{
+                    cursor: default;
+                    color: #555;
+                }
+            }
+
+        }
+
+    }
+
+    .tab-content{
+        .product-box{
+            margin-top: 20px;
+            padding-left:0px;
+            padding-right:0px;
+            text-align: center;
+            .fa-plus{
+                padding-top: 31px;
+                font-size: 3em;
+                vertical-align: middle;
+                margin-right:10px;
+            }
+            img{
+                width:100px;
+                height:100px;
+
+            }
+            .detail{
+                text-align: left;
+                margin-top:15px;
+                margin-left:10px;
+            }
+        }
+
+        .btn-box{
+            padding-top: 126px;
+            .btn +.btn{
+                margin-left:15px;
+            }
+        }
+    }
+}
+
+//推荐组合表格
+.table-groupPromo{
+    tr{
+        td.full{
+            border-top-style:none;
+        }
+    }
+}
+
+//loading样式
+.loading{
+    width:auto;
+    height:100px;
+    background: url(/img/loading.gif) no-repeat center;
+}
+
+//飞飞信鸽
+.msg-box{
+    .modal-header{
+        background-color: @navbar-inverse-bg;
+        cursor: move;
+    }
+    .modal-body{
+        padding-top:0px;
+        padding-bottom:0px;
+        background-color: @navbar-cool-bg;
+        .left{
+            padding :0px;
+
+        }
+        .right{
+            padding : 0px;
+            .btn-area{
+                a{
+                    padding-left:5px;
+                }
+                .form-group{
+                    margin-bottom: 0px;
+                    .checkbox-inline{
+                        margin-top: 8px;
+                    }
+                }
+
+            }
+
+            .panel{
+                border-radius:0px;
+                margin-bottom: 0px;
+                border:0px;
+                .box-shadow(0 0px 0px rgba(0,0,0,.05));
+
+                .panel-heading{
+                    height:39px;
+                    padding:0px 5px;
+                    background-color: @navbar-cool-bg;
+                    border:0px;
+                }
+
+                .panel-footer{
+                    height:40px;
+                    padding:0px;
+                    background-color: @navbar-cool-bg;
+                }
+            }
+            .msg-list{
+                height: 300px;
+                overflow-y: auto;
+                margin-right: 1px;
+                .table{
+                    thead{
+                        display:none;
+                    }
+                    tr{
+                        &:first-child{
+                            td{
+                                border-top:0px;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .list-group{
+        margin-bottom:0px;
+        .list-group-item{
+            border: 0px;
+            background-color: @navbar-cool-bg;
+            &:hover,
+            &:focus {
+                background-color: @nav-link-hover-bg;
+            }
+            &:first-child{
+                .border-top-radius(0px);
+            }
+            &:last-child {
+                margin-bottom: 0;
+                .border-bottom-radius(0px);
+            }
+
+            .badge,
+            {
+                color: @badge-color;
+                background-color: @badge-bg;
+            }
+
+        }
+        .active{
+            color: @list-group-link-color;
+            background-color:#fff;
+        }
+    }
+    .pagination-cool{
+        .pagination{
+            li{
+                a{
+                    background-color: @nav-link-hover-bg;
+
+                    &:hover, &:focus{
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+//帮助中心
+.helpCenter{
+    margin-bottom: 50px;
+
+    h4{
+        font-size: 16px;
+        display: block;
+        background-color: @gray-lighter;
+        border-top: 2px solid @navbar-inverse-bg;
+        padding: 10px 6px;
+        font-weight: bold;
+    }
+
+    p,h5,table{
+        margin-left : 20px;
+        margin-right : 20px;
+    }
+
+    p + h4{
+        margin-top:20px;
+    }
+    h4 + h4{
+        margin-top:20px;
+    }
+
+    img{
+        border:1px #333 dotted;
+        padding:10px;
+        margin:10px 0px 10px 20px;
+    }
+
+    .sideBar{
+        position: fixed;
+        right: 50px;
+        bottom: 20px;
+        border-radius: 4px;
+        display:none;
+
+        .top{
+            display: block;
+            position: relative;
+            width: 66px;
+            height: 66px;
+            text-align: center;
+            line-height: 14px;
+            text-decoration: none;
+            .fa{
+                font-size: 4em;
+            }
+        }
+    }
+}
+
+
+.table-custom-two{
+    thead{
+        display:none;
+    }
+    .first{
+        td{
+            height: 45px;
+
+            &:last-child{
+                padding-right:20px;
+            }
+        }
+    }
+
+    .second{
+        .sbtn{
+            position:absolute;
+            right : 20px;
+            bottom: 19px;
+        }
+        td{
+            border-top : 0px;
+            vertical-align: top;
+            .skuName{
+                margin-left:20px;
+                margin-bottom:15px;
+            }
+
+            &:last-child{
+                //padding-right:20px;
+            }
+        }
+    }
+
+    dl{
+        dt{
+            width:100px;
+        }
+        dd{
+            margin-left: 100px;
+        }
+    }
+}
+
+//数字输出放大样式
+.largerView{
+    position:absolute;
+    display: none;
+    color:#ff7500;
+    border : 1px solid @gray-dark;
+    font-weight: 900;
+    font-size: 1.5em;
+    padding:10px;
+    height:52px;
+    min-width: 100px;
+    border-radius: 5px;
+    white-space: nowrap;
+    top: -53px;
+    background-color: #fff;
+}
+
+//带tab的列表
+.list-with-tabs{
+    .nav-pills{
+        > li {
+            // Links rendered as pills
+            > a {
+                border-bottom-left-radius:0px;
+                border-bottom-right-radius:0px;
+            }
+        }
+    }
+
+    .panel-list-page{
+        border: 1px solid @brand-primary;
+        border-top-left-radius:0px;
+        border-top-right-radius:0px;
+    }
+}
+
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+    h4 {
+        color: #f0ad4e;
+    }
+}
+
+.bs-callout-info {
+    border-left-color: #5bc0de;
+    h4 {
+        color: #5bc0de;
+    }
+}
+
+.bs-callout-danger {
+    border-left-color: #d9534f;
+    h4 {
+        color: #d9534f;
+    }
+}
+
+//订单详细页面
+.orderDetail{
+    .dl-horizontal{
+        dt, dd {
+            line-height: 2.2;
+        }
+        dt{
+            font-weight: normal;
+        }
+        text-align: right;
+        margin-right:20px;
+        .large{
+            font-size:@font-size-h4;
+            font-weight: 800;
+        }
+        dd.large {
+            color:#dd0000;
+        }
+
+        hr{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-top: 1px dotted #DFDEDE;
+        }
+    }
+}
+
+//datetimepicker 控件
+.datetimepicker{
+    .btn-bar{
+        display: block;
+    }
+}
+
+//搭配组合列表
+.bundlingList{
+    .product-box{
+        margin-top: 20px;
+        text-align: center;
+        .fa-plus{
+            padding-top: 31px;
+            font-size: 3em;
+            vertical-align: middle;
+            margin-right:10px;
+        }
+        img{
+            width:100px;
+            height:100px;
+
+        }
+        .detail{
+            text-align: left;
+            margin-top:15px;
+            margin-left:10px;
+            .name{
+            }
+            .list-unstyled{
+                margin-top: 10px;
+                border-top: 1px dotted @gray-darker;
+            }
+        }
+    }
+}

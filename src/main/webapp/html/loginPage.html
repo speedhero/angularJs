@@ -1,0 +1,125 @@
+<div class="login">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-2">
+            <h1>飞飞厂商后台</h1>
+        </div>
+        <div class="col-md-9  col-md-offset-1">
+            <ul class="list-inline">
+            <li><a href="http://www.feifei.com" target="_blank">飞飞商城</a></li>
+            <!--<li><a>商家入驻</a></li>-->
+            <li><a href="http://www.feifei.com/about.html#a01" target="_blank">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--/.row -->
+    <div class="row login-body">
+        <div class="banner-background">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                </div>
+                <div class="col-md-7  col-md-offset-1">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" name="loginForm" ng-submit="submitLogin()" novalidate>
+                                <fieldset>
+                                    <div class="container-fluid">
+                                        <div ng-class="{'has-error': (loginForm.account.$dirty || hasCommit) &amp;&amp; loginForm.account.$invalid}"
+                                             class="form-group">
+                                            <div class="col-sm-24">
+                                                <input placeholder="账户名" name="account" type="text" ng-model="login.account"
+                                                ,="" autofocus="" required class="form-control">
+                                                <div class="form-error" ng-show="(loginForm.account.$dirty || hasCommit) &amp;&amp; loginForm.account.$invalid"
+                                                     class="help-block"><span>请输入用户名</span></div>
+                                            </div>
+                                        </div>
+                                        <div ng-class="{'has-error': (loginForm.password.$dirty || hasCommit) &amp;&amp; loginForm.password.$invalid}"
+                                             class="form-group">
+                                            <div class="col-sm-24">
+                                                <input placeholder="密码" name="password" type="password"
+                                                       ng-model="login.password" required class="form-control">
+
+                                                <div class="form-error"  ng-show="(loginForm.password.$dirty || hasCommit) &amp;&amp; loginForm.password.$invalid"
+                                                     class="help-block"><span>请输入密码</span></div>
+                                            </div>
+                                        </div>
+                                        <div ng-class="{'has-error': (loginForm.verification.$dirty || hasCommit) &amp;&amp; loginForm.verification.$invalid}"
+                                             class="form-group">
+                                            <div class="col-sm-10">
+                                                <input placeholder="验证码" name="verification" type="text"
+                                                       ng-model="login.verification" required class="form-control">
+                                                <div class="form-error" ng-show="(loginForm.verification.$dirty || hasCommit) &amp;&amp; loginForm.verification.$invalid"
+                                                     class="help-block"><span>请输入验证码</span></div>
+                                            </div>
+                                            <div id="verification" class="col-sm-8"><img src="/data/upms/kaptcha" width="55"
+                                                                                         height="24" align="absmiddle">
+                                            </div>
+                                            <div class="col-sm-6"><a ng-click="getVerification();" title="看不清楚? 点击获得新图片"
+                                                                     alt="看不清楚? 点击获得新图片" class="btn btn-link">换一张</a></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-24">
+                                                <input type="submit" value="登入" class="btn btn-light btn-block">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div ng-hide="error.result" class="col-sm-24">
+                                                <div class="alert alert-danger">{{error.message}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <!--/.panel-body -->
+                    </div>
+                    <!--/.login-panel -->
+                </div>
+            </div>
+            <!--/.row -->
+        </div>
+    </div>
+    <!--/.login-body -->
+
+    <div class="row info-body">
+        <div class="col-md-12 col-md-offset-2">
+            <div class="title">
+                <blockquote>
+                    <p>飞飞公告</p>
+                </blockquote>
+            </div>
+            <div class="content">
+                <ul class="list-unstyled">
+                    <li>&nbsp;&nbsp;亲爱的飞飞厂商用户，飞飞厂商后台1.0 Bete版于2014年10月17日正式上线啦！若新版面使用给部分老用户带来不适应，深表歉意。接下来我们还将不断推出新功能、新应用，敬请期待。飞飞与您共创精彩！
+                        <span class="date pull-right">2014-10-17</span></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-7  col-md-offset-1">
+            <div class="title">
+                <blockquote>
+                    <p>联系飞飞</p>
+                </blockquote>
+            </div>
+            <div class="content">
+                <dl>
+
+                    <dt>工作时间</dt>
+                    <dd>9:00 - 21:00</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!--/.row -->
+
+    <footer>
+        <div class="container">
+            <div class="text-center">
+                <p>(C)Copyright 2014 FeiFei.com 广州龙飞软件科技有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+<script src="vendor/md5/md5.js"></script>

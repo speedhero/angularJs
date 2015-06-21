@@ -1,0 +1,294 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+    <strong>订单详情</strong>
+</div>
+
+<div class="panel-body">
+
+<div class="bs-callout bs-callout-warning">
+    <h4>收货信息</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <!-- 收货人 -->
+            <label class="col-sm-offset-1 col-sm-3 control-label">收货人:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.receiveName}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- 收货地址 -->
+            <label class="col-sm-offset-1 col-sm-3 control-label">收货地址:</label>
+
+            <div class="col-sm-20">
+                <p class="form-control-static">{{orderDetail.receiveAddress}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- 联系方式 -->
+            <label class="col-sm-offset-1 col-sm-3 control-label">联系方式:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.phone}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- 收货时间 -->
+            <label class="col-sm-offset-1 col-sm-3 control-label">收货时间:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.receiveTime}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-callout bs-callout-danger">
+    <h4>支付信息</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <!-- 支付金额 -->
+            <label class="col-sm-offset-1 col-sm-3 control-label">支付金额:</label>
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    {{orderDetail.payAmount | currency:"￥" }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-callout bs-callout-info">
+    <h4>发票信息</h4>
+    <div class="form-horizontal" ng-if="!orderDetail.invoice">
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    不需发票
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal" ng-show="orderDetail.invoice.type == 0">
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票类型:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.type == 0">普通发票</span>
+                    <span ng-if="orderDetail.invoice.type == 1">增值税发票</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票抬头:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.title == 0">个人</span>
+                    <span ng-if="orderDetail.invoice.title == 1">单位</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ng-if="orderDetail.invoice.title == 1">
+            <label class="col-sm-offset-1 col-sm-3 control-label">单位名称:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.company}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票内容:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.itemContent == 0">明细</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 1">办公用品</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 2">电脑配件</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 3">耗材</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal" ng-show="orderDetail.invoice.type == 1">
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票类型:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.type == 0">普通发票</span>
+                    <span ng-if="orderDetail.invoice.type == 1">增值税发票</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票抬头:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.title == 0">个人</span>
+                    <span ng-if="orderDetail.invoice.title == 1">单位</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">单位名称:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.company}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">纳税人识别号:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.taxPayerId}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">注册地址:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.registerAddress}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">注册电话:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.phone}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">开户银行:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.bankName}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">银行账户:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">{{orderDetail.invoice.bankAccount}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-offset-1 col-sm-3 control-label">发票内容:</label>
+
+            <div class="col-sm-9">
+                <p class="form-control-static">
+                    <span ng-if="orderDetail.invoice.itemContent == 0">明细</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 1">办公用品</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 2">电脑配件</span>
+                    <span ng-if="orderDetail.invoice.itemContent == 3">耗材</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-callout bs-callout-danger">
+    <h4>消费者备注信息</h4>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-9">
+                <p ng-if="orderDetail.remark" class="form-control-static">
+                    {{orderDetail.remark}}
+                </p>
+                <p ng-if="!orderDetail.remark" class="form-control-static">
+                    没有备注
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bs-callout bs-callout-warning">
+    <h4>商品信息</h4>
+
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th style="">商品信息</th>
+            <th style="width: 20%">数量（件）</th>
+            <th style="width: 20%">单价（元）</th>
+            <th style="width: 20%">小计（元）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in orderDetail.orderSkus">
+            <td>
+                <a href="http://item.feifei.com/{{item.skuNumber}}.html"
+                   target="blank_">{{item.skuName}}</a>
+                    <span class="help-block">
+                      {{item.productAdditionInfo}}
+                    </span>
+            </td>
+            <td>{{item.skuQuantity}}</td>
+            <!-- 单价 -->
+            <td>
+                <span ng-if="item.skuDiscountPrice == item.skuPrice ">{{item.skuPrice |currency:"￥"}}<br></span>
+                <del ng-if="item.skuDiscountPrice != item.skuPrice " ng-class="text-muted">{{item.skuPrice |
+                    currency:"￥"}}<br></del>
+                <span ng-if="item.skuDiscountPrice != item.skuPrice ">{{item.skuDiscountPrice | currency:"￥"}}</span>
+            </td>
+            <td>
+                <!-- 折后价和销售价不一致，按照折后价来算 -->
+                  <span ng-if="item.skuDiscountPrice && item.skuDiscountPrice != item.skuPrice ">
+                    {{item.skuDiscountPrice * item.skuQuantity | currency:"￥"}}
+                  </span>
+                <!-- 折后价和销售价一致，按照销售价来算 -->
+                  <span ng-if="item.skuDiscountPrice == item.skuPrice ">
+                    {{item.skuPrice * item.skuQuantity | currency:"￥"}}
+                  </span>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot ng-if="orderDetail.totalWeight">
+        <tr>
+            <td class="text-left" colspan="4">
+                <strong>重量：{{orderDetail.totalWeight}}</strong>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <!--/.table -->
+
+    <div class="row">
+        <div class="pull-right">
+            <dl class="dl-horizontal">
+                <dt>商品总计：</dt>
+                <dd>{{orderDetail.itemSubtoal | currency:"￥"}}</dd>
+
+                <dt>优惠金额：</dt>
+                <dd>{{orderDetail.salesRuleDiscountAmount | currency:"- ￥"}}</dd>
+
+                <dt>优惠券：</dt>
+                <dd>{{orderDetail.couponAmount | currency:"- ￥"}}</dd>
+
+                <dt>红包金额：</dt>
+                <dd>{{orderDetail.rewardAmount | currency:"- ￥"}}</dd>
+
+                <dt>飞币(飞飞优惠)：</dt>
+                <dd>{{orderDetail.vipDiscountAmount | currency:"- ￥"}}</dd>
+
+                <dt>运费：</dt>
+                <dd>{{orderDetail.shippingCost | currency:"+ ￥"}}</dd>
+
+                <hr/>
+                <dt class="large">应收金额：</dt>
+                <dd class="large">{{orderDetail.payAmount | currency:"￥"}}</dd>
+            </dl>
+            <!--/.dl-horizontal-->
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+<!-- /.panel-body -->
+
+</div>

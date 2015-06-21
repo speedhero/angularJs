@@ -1,0 +1,279 @@
+<!-- 商品促销价列表页面-->
+<div>
+    <div class="row functionBar">
+        <ol class="breadcrumb">当前位置：
+            <li class="active">商品促销价列表</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row" ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="searchForm" name="searchForm">
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">商品名称:</label>
+                                <div class="col-sm-18">
+                                    <input class="form-control" name="productName" ng-model="query.productName" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">SKU编号:</label>
+                                <div class="col-sm-18">
+                                    <input class="form-control" name="skuCode" ng-model="query.skuCode" placeholder="">
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">状态:</label>
+                                <div class="col-sm-18">
+                                    <select class="form-control" ng-model="query.promotionalStatus" name="promotionalStatus" ng-options="status.value as status.label for status in _statuses">
+                                        <option value="">--- 请选择 ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group" >
+                                        <label class="col-sm-24 control-label">促销价:</label>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="form-group" ng-class="{ 'has-error': searchForm.promotionalPriceMin.$invalid && !searchForm.promotionalPriceMin.$pristine }">
+                                        <div class="col-sm-24">
+                                            <input class="form-control" name="promotionalPriceMin" ng-model="query.promotionalPriceMin" placeholder="" validate-float/>
+                                            <div class="help-block"
+                                                 ng-show="searchForm.promotionalPriceMin.$dirty && searchForm.promotionalPriceMin.$invalid">
+                                                <span ng-show="searchForm.promotionalPriceMin.$error.float">
+                                                    请输入有效的正浮点数(最多两位小数)
+                                                </span>
+                                            </div>
+                                            <!-- /.help-block-->
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="col-sm-24 control-label">至</label>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="form-group"  ng-class="{ 'has-error': searchForm.promotionalPriceMax.$invalid && !searchForm.promotionalPriceMax.$pristine }">
+                                        <div class="col-sm-24">
+                                            <input class="form-control" name="promotionalPriceMax" ng-model="query.promotionalPriceMax" placeholder="" validate-float>
+                                            <div class="help-block"
+                                                 ng-show="searchForm.promotionalPriceMax.$dirty && searchForm.promotionalPriceMax.$invalid">
+                                                <span ng-show="searchForm.promotionalPriceMax.$error.float">
+                                                    请输入有效的正浮点数(最多两位小数)
+                                                </span>
+                                            </div>
+                                            <!-- /.help-block-->
+                                        </div>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">
+                                    促销时间:
+                                </label>
+
+                                <div class="col-sm-8">
+                                    <div class="dropdown">
+                                        <a class="input-toggle" id="dropdown1" role="button"
+                                           data-toggle="dropdown" data-target="#" href="">
+                                            <div class="input-group">
+                                                <input id="startTimeMin" type="text" name="startTimeMin"
+                                                       class="form-control"
+                                                       data-ng-model="query.startTimeMin" readonly="true">
+        										<span class="input-group-addon">
+        											<i class="glyphicon glyphicon-calendar"></i>
+        										</span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="query.startTimeMin"
+                                                            data-datetimepicker-config="{dropdownSelector: '#dropdown1',minView:'day'}"/>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="col-sm-24 control-label">至</label>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <div class="dropdown">
+                                        <a class="input-toggle" id="dropdown2" role="button"
+                                           data-toggle="dropdown" data-target="#" href="">
+                                            <div class="input-group">
+                                                <input id="endTimeMax" type="text" name="endTimeMax"
+                                                       class="form-control"
+                                                       data-ng-model="query.endTimeMax" readonly="true">
+        										<span class="input-group-addon">
+        											<i class="glyphicon glyphicon-calendar"></i>
+        										</span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="query.endTimeMax"
+                                                            data-datetimepicker-config="{dropdownSelector: '#dropdown2',minView:'day'}"/>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end of .form-group -->
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" ng-click="search()" id="searchBtn"
+                                        ng-disabled="!searchForm.$valid"><span class="glyphicon glyphicon-search"></span> 查  询</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-1">
+                            <div class="form-group">
+                                <button class="btn btn-default" ng-click="resetSearch()">重置</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </div>
+
+                    </div>
+                    <!-- /.row -->
+                </form>
+
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <div class="row">
+        <div class="alert alert-info">
+            <p>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                重要提示：商品促销价只针对上架的商品。每个商品只能有一条促销价，只有当设置的促销价失效后才能设置新的促销价。
+            </p>
+        </div>
+
+        <div class="panel panel-default panel-list-page panel-consultList">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- button bar -->
+                        <div class="form-group" style="margin-bottom: 0px;">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-checked="selectedItems4All.length != 0 && selectedItems.length == selectedItems4All.length"
+                                       ng-click="toggleSelectionAll(selectedItems, selectedItems4All)"> 全选
+                            </label>
+                            <a href="" tabindex="10"  id="multiDisableBtn" class="btn btn-default navbar-btn" ng-click="showModal4MultiDisable()">批量设置失效</a>
+                            <a ui-sref="main.createPromoPrices" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-plus"></span> 添加商品促销价</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pull-right text-right">
+                        <div ng-table-pagination="tableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <!-- data table -->
+                <div class="row">
+                    <div class="">
+                        <table ng-table="tableParams" class="table-info table-condensed table-hover table-striped table table-custom">
+                            <tbody>
+                            <tr ng-repeat="item in $data">
+                                <td width="10px" data-title="'#'" >
+                                    <input type="checkbox" ng-checked="selectedItems.indexOf(item.recordNo) > -1"
+                                           ng-click="toggleSelection(selectedItems, item.recordNo)" ng-init="selectedItems4All.push(item.recordNo)"/>
+                                </td>
+                                <td  data-title="'商品名称'" style="text-align: left;">
+                                    {{item.productName}}
+                                </td>
+                                <td width="145px"  data-title="'SKU编号'" style="text-align: center;">
+                                    {{item.skuCode}}
+                                </td>
+                                <td width="120px"  data-title="'飞飞价'" style="text-align: center;">
+                                    {{item.price | currency:'&yen;' }}
+                                </td>
+                                <td width="120px"  data-title="'促销价'" style="text-align: center;">
+                                    {{item.promotionalPrice | currency:'&yen;' }}
+                                </td>
+                                <td width="180px"  data-title="'生效时间'" style="text-align: center;">
+                                    {{item.startTime | date: "yyyy-MM-dd HH:mm:ss" }}
+                                </td>
+                                <td width="180px"  data-title="'失效时间'" style="text-align: center;">
+                                    {{item.endTime | date: "yyyy-MM-dd HH:mm:ss" }}
+                                </td>
+                                <td width="80px"  data-title="'状态'" style="text-align: center;">
+                                    {{item.promotionalStatus | promoPriceStatus }}
+                                </td>
+                                <td width="120px" data-title="'操作'" style="text-align: center;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default" ng-if="canDisable(item)" ng-click="showModal4MultiDisable(item)">设置失效</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="loading" ng-if="!$loaded"></div>
+                    <!-- /.loading -->
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <!-- pagination -->
+                <div ng-table-pagination="tableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- 批量设置失效Modal-->
+<div ng-include="templates.multiDisableModal"></div>
+
+

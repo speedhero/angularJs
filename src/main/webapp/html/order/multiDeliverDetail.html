@@ -1,0 +1,176 @@
+<div id="multiDeliverPage">
+    <div class="row">
+        <ol class="breadcrumb">
+            当前位置：
+            <li><a href="" ng-click="backToList()"><span class="fa fa-arrow-circle-left"></span>&nbsp;返回发货列表</a></li>
+            <li class="active">批量发货</li>
+        </ol>
+    </div>
+    <div class="row">
+        <form name="multiDeliverForm" id="multiDeliverForm">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>第一步&nbsp;&nbsp;选择物流公司</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group" ng-class="{ 'has-error': (multiDeliverForm.orderExpress.$dirty || hasCommit) && multiDeliverForm.orderExpress.$invalid}">
+                            <label class="col-sm-3 control-label">&lowast; 物流/快递公司</label>
+                            <div class="col-sm-4">
+                                <select id="orderExpress" name="orderExpress" class="form-control" required ng-model="deliverInfoForModal.logisticsCompany"  ng-options="item.name for item in $logisticsCompanies">
+                                    <option value="">------请选择--------</option>
+                                </select>
+                                <div class="help-block"
+                                     ng-show="(multiDeliverForm.orderExpress.$dirty || hasCommit) && multiDeliverForm.orderExpress.$invalid">
+                            <span ng-show="multiDeliverForm.orderExpress.$error.required">
+                                必填
+                            </span>
+                                </div>
+                                <!-- /.help-block-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>第二步&nbsp;&nbsp;确认收货信息并填写运单号 <span ng-if="$loadedMultiDeliver">（共{{$deliverOrderArray.length}}个）</span></strong>
+                </div>
+                <div class="panel-body" style="padding-top: 0px;">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <div class="loading" ng-if="!$loadedMultiDeliver"></div>
+                            <!-- /.loading -->
+                            <table na-table="deliverTableParams" id="deliverTable"
+                                   class="table table-info table-condensed table-custom table-custom-two">
+                                <tbody>
+                                <tr ng-repeat-start="o in $deliverOrderArray" class="first bg-info">
+                                    <td colspan="3">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+
+                                                &nbsp;&nbsp;<strong>订单编号：</strong>{{o.number}}
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <strong>下单时间：</strong>{{o.orderTime | date:'yyyy-MM-dd HH:mm'}}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <strong>订单金额：</strong>{{o.totalAmount | currency:' &yen;' }}
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <strong >最迟发货时间：</strong>
+                                                <span>{{(o.orderTime + 3600000*48) | date:'yyyy-MM-dd HH:mm'}}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end class="second">
+                                    <td style="position:relative">
+                                        <div class="sbtn" ng-if="o.orderSkuVOs.length > 1">
+                                            <a href="" ng-click="showOtherSkus(o)" ng-if="!isShowOtherSkus(o)"><i class="fa fa-caret-down"></i> 显示全部商品</a>
+                                            <a href="" ng-click="hideOtherSkus(o)" ng-if="isShowOtherSkus(o)"><i class="fa fa-caret-up"></i> 隐藏其他商品</a>
+                                            (共{{o.orderSkuVOs.length}}个)
+                                        </div>
+                                        <div ng-repeat="item in o.orderSkuVOs">
+                                            <div ng-show="isShowOtherSkus(o, $index)">
+                                                <div class="skuName">
+                                                    <a target="_blank" ng-href="http://item.feifei.com/{{item.skuNumber}}.html">
+                                                        <b>{{item.skuName}}</b>
+                                                    </a>
+                                                </div>
+                                                <dl class="dl-horizontal">
+                                                    <dt>SKU编号：</dt>
+                                                    <dd>{{item.skuNumber}}</dd>
+                                                    <dt>型号：</dt>
+                                                    <dd>{{item.skuCode}}</dd>
+                                                    <dt>商家编码：</dt>
+                                                    <dd>{{item.merchantProductCode	}}</dd>
+                                                    <dt>商品数量：</dt>
+                                                    <dd><span class="text-primary">{{item.skuQuantity}}</span></dd>
+                                                </dl>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width:400px;">
+                                        <dl class="dl-horizontal">
+                                            <dt>收货地址：</dt>
+                                            <dd>{{o.orderReceiveVO.receiveAddress}}</dd>
+                                            <dt>收货人：</dt>
+                                            <dd>{{o.orderReceiveVO.receiveName}}</dd>
+                                            <dt>联系方式：</dt>
+                                            <dd>{{o.orderReceiveVO.phone}}</dd>
+                                        </dl>
+                                    </td>
+                                    <td  style="width:400px;">
+                                        <div class="form-horizontal" ng-form="skuForm">
+                                            <div class="form-group">
+                                                <label class="col-sm-8 control-label">&lowast; 物流公司：</label>
+                                                <div class="col-sm-16">
+                                                    <p class="form-control-static">{{deliverInfoForModal.logisticsCompany.name}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group"  ng-class="{ 'has-error': (skuForm.trackingNum.$dirty || hasCommit) && skuForm.trackingNum.$invalid }">
+                                                <label class="col-sm-8 control-label">&lowast; 运单号：</label>
+                                                <div class="col-sm-16">
+                                                    <div style="position:relative">
+                                                        <div class="largerView">{{formattedOutputNumber(o.deliverInfoForNumber)}}</div>
+                                                        <input type="text" name="trackingNum" ng-pattern="/^[A-Za-z0-9]+$/" class="form-control"   required ng-model="o.deliverInfoForNumber"
+                                                               ng-focus="trackingNoOnFocus($event)" ng-blur="trackingNoOnBlur($event)"/>
+                                                        <div class="help-block" ng-show="(skuForm.trackingNum.$dirty || hasCommit) && skuForm.trackingNum.$invalid">
+                                                        <span ng-show="skuForm.trackingNum.$error.required">
+                                                        运单号不可为空
+                                                        </span>
+                                                        <span ng-show="skuForm.trackingNum.$invalid&&!skuForm.trackingNum.$error.required">
+                                                        只允许输入字母和数字
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert    alert-info col-sm-offset-15">
+                <span class="glyphicon glyphicon-info-sign"></span>运单号填写后，请再仔细进行确认，一旦提交，无法修改！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　
+            </div>
+            <div class="row">
+                <div class="col-sm-26" >
+                    <div class="form-group">
+                        <div class="col-sm-15"></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-lg btn-block" ng-if="$loadedMultiDeliver" ng-click="multiOrderDeliver(deliverInfoForModal,$deliverOrderArray);">发&nbsp;&nbsp;&nbsp;货</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-default btn-lg btn-block" ng-click="backToList();">取&nbsp;&nbsp;&nbsp;消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+<!--详情-->
+<script id="detailPopover" type="text/ng-template">
+    <div style="width:400px">
+        <ul class="text-muted" ng-if="deliverInfo.length > 0">
+            <li ng-repeat="d in deliverInfo" ng-class="{'text-primary':$last}">
+                <div>{{d.statusTime | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                <div>{{d.statusAddress}}</div>
+                <br>
+            </li>
+        </ul>
+        <ul class="list-unstyled text-muted" ng-if="deliverInfo.length <= 0">
+            <li class="text-center">暂无数据</li>
+        </ul>
+    </div>
+</script>
+<br/>
+<br/>

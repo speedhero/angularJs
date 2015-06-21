@@ -1,0 +1,31 @@
+<!-- 结算列表页面-->
+<div class="table-responsive">
+    <table ng-table="commissionTableParams" class="table table-condensed table-hover table-custom">
+        <tbody>
+        <tr ng-repeat="finance in $data">
+            <div class="empty-tip" ng-if="commissionFinanceTableParams.total()==0">
+                暂无列表数据
+            </div>
+            <td  width="15%"  style="text-align: center;" data-title="'结算月份'">
+                {{finance.comment}}
+            </td>
+            <td  width="15%" style="text-align: center;"   data-title="'交易额(元)'">
+                ￥{{finance.businessAmount}}
+            </td>
+            <td  width="15%" style="text-align: center;"  data-title="'佣金(元)'">
+                ￥{{finance.commission}}
+            </td>
+            <td  width="15%" style="text-align: center;"  data-title="'调整金额(元)'">
+                ￥{{finance.adjustAmount}}
+            </td>
+            <td  width="15%" style="text-align: center;"  data-title="'待付款金额(元)'">
+                ￥{{finance.settlementAmount}}
+            </td>
+            <td width="25%" style="text-align: center;"  data-title="'操作'">
+                <a href="/data/finance/export/reportDetail/{{finance.monthStr}}/{{finance.halfMonthType}}" type="button"  class="btn btn-primary" target="下载">下载明细</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

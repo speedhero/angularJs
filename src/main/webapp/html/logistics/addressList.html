@@ -1,0 +1,59 @@
+<div id="addressList">
+    <div class="row">
+        <ol class="breadcrumb">当前位置：
+            <li class="active">地址列表</li>
+        </ol>
+    </div>
+    <div ng-if="$loaded && (addressArray.length == 0)" class="jumbotron">
+        <p class="lead">地址信息是用于发货、退货、换货时候使用的。</p>
+
+        <p class="text-center"><a ui-sref="main.createAddress" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i><span>添加第一个地址</span></a>
+        </p>
+    </div>
+    <div class="loading" ng-if="!$loaded"></div>
+    <!-- /.loading -->
+    <div ng-if="addressArray.length &gt; 0" class="row">
+        <div class="panel panel-default panel-list-page">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title">地址列表</div>
+                    </div>
+                    <div class="col-sm-12 text-right">
+                        <div class="btn-group"><a ui-sref="main.createAddress" class="btn btn-primary navbar-btn"><i
+                                class="fa fa-plus"></i><span>&nbsp;新增地址</span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body no-padding">
+                <table ng-if="addressArray.length"
+                       class="table table-fixed table-info table-condensed table-hover text-center no-margin">
+                    <thead>
+                    <tr>
+                        <th class="text-center col-sm-10">地址</th>
+                        <th class="text-center col-sm-3">邮编</th>
+                        <th class="text-center col-sm-3">联系人</th>
+                        <th class="text-center col-sm-3">联系电话</th>
+                        <th class="text-center col-sm-3">设为默认</th>
+                        <th class="text-center col-sm-2">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="address in addressArray">
+                        <td>{{address.state}}{{address.city}}{{address.area}}{{address.contactAddress}}</td>
+                        <td>{{address.zipCode}}</td>
+                        <td>{{address.contactPerson}}</td>
+                        <td>{{address.contactPhone}}</td>
+                        <td><a ng-show="!address.defaultFlag" ng-click="setDefault($index, address.tmsMftAddressId)"
+                               class="btn btn-default"><span
+                                class="fa fa-dot-circle-o"></span><span>&nbsp;设为默认</span></a><span
+                                ng-show="address.defaultFlag">默认</span></td>
+                        <td><a ui-sref="main.editAddress({addressId: address.tmsMftAddressId})" class="btn btn-default"><span
+                                class="glyphicon glyphicon-pencil"></span><span>&nbsp;修 改</span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

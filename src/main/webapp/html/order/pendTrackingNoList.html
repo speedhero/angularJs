@@ -1,0 +1,117 @@
+<div id="pendTrackingNoListPage">
+    <div class="row functionBar">
+        <ol class="breadcrumb">
+            当前位置：
+            <li class="active">修改运单号列表</li>
+        </ol>
+
+        <div class="searchBarControl">
+            <a href="" ng-click="showSearchBar()" ng-if="!isSearchBarShow()"><i class="fa fa-caret-down"></i> 显示搜索栏</a>
+            <a href="" ng-click="hideSearchBar()" ng-if="isSearchBarShow()"><i class="fa fa-caret-up"></i> 隐藏搜索栏</a>
+        </div>
+    </div>
+    <div class="row" ng-class="{'show':isSearchBarShow(),'hidden':!isSearchBarShow()}">
+        <div class="panel panel-default panel-search">
+            <div class="panel-body ">
+                <div class="row">
+                    <div class="col-lg-24">
+                        <form class="form-horizontal" role="form" id="pendTrackingNoSearchForm"
+                              name="pendTrackingNoSearchForm">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="orderNo" class="col-sm-8 control-label">订单编号:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="orderNo" ng-model="query.orderNo" name="orderNo" ng-type="text"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="trackingNumber" class="col-sm-8 control-label">运单号:</label>
+
+                                        <div class="col-sm-16">
+                                            <input id="trackingNumber" ng-model="query.trackingNumber" name="trackingNumber" ng-type="text"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- end of .form-group -->
+                                </div>
+                                <div class="col-sm-5"></div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <button id="searchBtn" name="searchBtn" class="btn btn-primary btn-block" ng-disabled="pendTrackingNoSearchForm.$invalid"
+                                                ng-click="search()">
+                                            <span class="glyphicon glyphicon-search"></span> 搜 &nbsp; &nbsp; &nbsp;索
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <button class="btn btn-default" ng-click="reset()">重置</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of .row -->
+
+                        </form>
+                    </div>
+                    <!-- end of .col-lg-24 -->
+                </div>
+                <!-- end of .row (nestest)-->
+            </div>
+            <!-- end of .panel-body -->
+        </div>
+        <!-- end of .panel -->
+    </div>
+    <!-- end of .row (first)-->
+    <div class="row" ng-if="isSearchBefore">
+        <div class="panel panel-default panel-list-page">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12 pagination-box pull-right text-right">
+                        <div ng-table-pagination="pendTrackingNoTableParams" template-url="$templates.paginationShort"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div ng-include="templates.pendTrackingNoTable"></div>
+                </div>
+
+                <div class="loading" ng-if="!$loadedPendTrackingNo"></div>
+                <!-- /.loading -->
+            </div>
+            <div class="panel-footer">
+                <div ng-table-pagination="pendTrackingNoTableParams" template-url="$templates.pagination"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end of .row -->
+
+    <div class="row" ng-if="!isSearchBefore">
+        <div class="alert alert-info text-center">
+            <p>
+                <span class="glyphicon glyphicon-info-sign"></span>
+                请至少输入一个查询条件进行查询。
+            </p>
+        </div>
+    </div>
+    <!-- end of .row -->
+
+    <!-- end of orderListPage  -->
+
+    <!--修改运单号-->
+    <div class="modal fade" id="updateTrackingNoModal" role="dialog">
+        <div class="modal-dialog">
+        </div>
+    </div>
+</div>
+<!--订单详情-->
+<div id="orderDetailPage">
+</div>

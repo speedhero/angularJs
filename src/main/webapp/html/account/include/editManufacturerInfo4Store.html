@@ -1,0 +1,100 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        商城展示信息
+        <div class="pull-right">
+            <a href="javascript:void(0)" ng-click="saveStore()"><i class="fa fa-save"></i>&nbsp;保存</a>
+            &nbsp;&nbsp;<a href="javascript:void(0)" ng-click="viewStore()">取消</a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" id="storeForm" name="storeForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group" ng-class="{ 'has-error': (storeForm.mftNameAlias.$dirty || hasCommit) && storeForm.mftNameAlias.$invalid }">
+                        <label class="col-sm-6 control-label">商城展示别名:</label>
+                        <div class="col-sm-18">
+                            <input class="form-control" name="mftNameAlias" ng-model="mftModel.mftNameAlias"
+                                   placeholder="请输入展示别名"
+                                   ng-maxlength="20"/>
+
+                            <div class="help-block"
+                                 ng-show="(storeForm.mftNameAlias.$dirty || hasCommit) && storeForm.mftNameAlias.$invalid">
+                                <span ng-show="storeForm.mftNameAlias.$error.maxlength">
+                                    展示别名不能超过20个字符
+                                </span>
+                            </div>
+                            <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>如果不填写制造商别名，商城会读取制造商名称字段。</div>
+                        </div>
+                    </div>
+                    <!--/form-group -->
+                </div>
+
+                <div class="col-sm-9">
+                    <div class="form-group" ng-class="{ 'has-error': (storeForm.hotline.$dirty || hasCommit) && storeForm.hotline.$invalid }">
+                        <label class="col-sm-9 control-label">&lowast; 售后服务热线:</label>
+                        <div class="col-sm-15">
+                            <input class="form-control" name="hotline" ng-model="mftModel.hotline"
+                                   required placeholder="请输入售后服务热线"
+                                   ng-maxlength="20" validate-phone/>
+
+                            <div class="help-block"
+                                 ng-show="(storeForm.hotline.$dirty || hasCommit) && storeForm.hotline.$invalid">
+                                <span ng-show="storeForm.hotline.$error.required">
+                                    售后服务热线必填
+                                </span>
+                                <span ng-show="storeForm.hotline.$error.maxlength">
+                                    售后服务热线不能超过20个字符
+                                </span>
+                                <span ng-show="storeForm.hotline.$error.phone">
+                                    只允许填写数字或中划线
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/form-group -->
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" ng-checked="mftModel.isShowHotline == 1"
+                                    ng-model="mftModel.isShowHotline"
+                                    ng-true-value="1"
+                                    ng-false-value="0"/>显示热线到商城
+                        </label>
+                    </div>
+                    <!--/form-group -->
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">&lowast; 所在地:</label>
+
+                <div class="col-sm-9">
+                    <div class="form-group" ng-class="{ 'has-error': ((storeForm.locationStateId.$dirty || hasCommit) && storeForm.locationStateId.$invalid) || ((storeForm.locationCityId.$dirty || hasCommit) && storeForm.locationCityId.$invalid) }">
+                        <div class="col-sm-12">
+                            <select name="locationStateId" ng-model="mftModel.locationStateId" ng-change="changeState()" ng-options="state.regionId as state.regionName for state in stateArray" required class="form-control">
+                                <option value="">--- 请选择 ---</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <select name="locationCityId" ng-model="mftModel.locationCityId" ng-options="city.regionId as city.regionName for city in cityArray" ng-show="mftModel.locationStateId"  required class="form-control">
+                                <option value="">--- 请选择 ---</option>
+                            </select>
+                        </div>
+                        <div ng-show="((storeForm.locationStateId.$dirty || hasCommit) && storeForm.locationStateId.$invalid) || ((storeForm.locationCityId.$dirty || hasCommit) && storeForm.locationCityId.$invalid)" class="clearfix help-block">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;请选择所在地</span>
+                        </div>
+                    </div>
+                    <!--/form-group -->
+                </div>
+            </div>
+            <!--/form-group -->
+
+        </form>
+        <!--/form-horizontal -->
+    </div>
+</div>

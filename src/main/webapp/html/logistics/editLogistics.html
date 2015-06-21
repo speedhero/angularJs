@@ -1,0 +1,160 @@
+
+<div class="row">
+  <ol class="breadcrumb">当前位置：
+    <li><a ui-sref="main.logistics">运费模板列表</a></li>
+    <li class="active">添加运费模板</li>
+  </ol>
+</div>
+<div id="logisticsDetail" class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">运费模板</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-24">
+          <form id="logisticsCreateForm" name="logisticsForm" role="form" novalidate class="form-horizontal">
+            <div ng-class="{ 'has-error': (logisticsForm.logisticsName.$dirty || hasCommit) &amp;&amp; logisticsForm.logisticsName.$invalid }" class="form-group">
+              <label for="logisticsName" class="col-sm-4 control-label">∗ 模板名称:</label>
+              <div class="col-sm-10">
+                <input name="logisticsName" ng-model="logistics.transFeeTempName" placeholder="请输入模板名称" ng-maxlength="25" required class="form-control">
+                <div ng-show="(logisticsForm.logisticsName.$dirty || hasCommit) &amp;&amp; logisticsForm.logisticsName.$invalid" class="help-block"><span ng-show="logisticsForm.logisticsName.$error.required">模板名称必填</span><span ng-show="logisticsForm.logisticsName.$error.maxlength">模板名称不能超过25个字符</span></div>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': ((logisticsForm.originState.$dirty || hasCommit) &amp;&amp; logisticsForm.originState.$invalid) || ((logisticsForm.originCity.$dirty || hasCommit) &amp;&amp; logisticsForm.originCity.$invalid) || ((logisticsForm.originArea.$dirty || hasCommit) &amp;&amp; logisticsForm.originArea.$invalid) }" class="form-group">
+              <label class="col-sm-4 control-label">∗ 发货地址:</label>
+              <div class="col-sm-4">
+                <select name="originState" ng-model="logistics.originStateId" ng-options="state.regionId as state.regionName for state in stateArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select name="originCity" ng-show="logistics.originStateId" ng-model="logistics.originCityId" ng-options="city.regionId as city.regionName for city in cityArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select name="originArea" ng-show="logistics.originCityId" ng-model="logistics.originAreaId" ng-options="area.regionId as area.regionName for area in areaArray" required class="form-control">
+                  <option value="">--- 请选择 ---</option>
+                </select>
+              </div>
+              <div ng-show="((logisticsForm.originState.$dirty || hasCommit) &amp;&amp; logisticsForm.originState.$invalid) || ((logisticsForm.originCity.$dirty || hasCommit) &amp;&amp; logisticsForm.originCity.$invalid) || ((logisticsForm.originArea.$dirty || hasCommit) &amp;&amp; logisticsForm.originArea.$invalid)" class="help-block"><span>请选择发货地址</span></div>
+            </div>
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': (logisticsForm.feeChargedBy.$dirty || hasCommit) &amp;&amp; logisticsForm.feeChargedBy.$invalid }" class="form-group">
+              <label class="col-sm-4 control-label">∗ 运费承担方:</label>
+              <div class="col-sm-20">
+                <label class="radio-inline">
+                  <input type="radio" ng-model="logistics.feeChargedBy" name="feeChargedBy" value="0" required>消费者承担运费
+                </label>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div ng-class="{ 'has-error': (logisticsForm.caculateType.$dirty || hasCommit) &amp;&amp; logisticsForm.caculateType.$invalid }" class="form-group">
+              <label class="col-sm-4 control-label">∗ 计价方式:</label>
+              <div class="col-sm-20">
+                <label class="radio-inline">
+                  <input type="radio" ng-model="logistics.caculateType" name="caculateType" value="0" required>按重量
+                </label>
+                <!--.alert.alert-info
+                //i.fa.fa-info-circle
+                //span 除了指定地区城市外，其余地区（中国国内，且不包括港澳台）的运费采用“默认运费”
+                -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">∗ 默认运费:</label>
+              <div class="col-sm-20">
+                <div class="form-inline">
+                  <!--.alert.alert-info.clearfix-->
+                  <div class="form-group">默认运费:</div>
+                  <div ng-class="{ 'has-error': ((logisticsForm.firstValue.$dirty || hasCommit) &amp;&amp; logisticsForm.firstValue.$invalid)}" class="form-group">
+                    <input name="firstValue" type="text" ng-model="logistics.firstValue" required validate-float class="logistics-inline-input form-control">
+                    <div ng-show="((logisticsForm.firstValue.$dirty || hasCommit) &amp;&amp; logisticsForm.firstValue.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                  </div>
+                  <div class="form-group">kg内，</div>
+                  <div ng-class="{ 'has-error': ((logisticsForm.firstPrice.$dirty || hasCommit) &amp;&amp; logisticsForm.firstPrice.$invalid)}" class="form-group">
+                    <input name="firstPrice" type="text" ng-model="logistics.firstPrice" required validate-float class="logistics-inline-input form-control">
+                    <div ng-show="((logisticsForm.firstPrice.$dirty || hasCommit) &amp;&amp; logisticsForm.firstPrice.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                  </div>
+                  <div class="form-group">元，每增加</div>
+                  <div ng-class="{ 'has-error': ((logisticsForm.addValue.$dirty || hasCommit) &amp;&amp; logisticsForm.addValue.$invalid)}" class="form-group">
+                    <input name="addValue" type="text" ng-model="logistics.addValue" required validate-float class="logistics-inline-input form-control">
+                    <div ng-show="((logisticsForm.addValue.$dirty || hasCommit) &amp;&amp; logisticsForm.addValue.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                  </div>
+                  <div class="form-group">kg，增加运费</div>
+                  <div ng-class="{ 'has-error': ((logisticsForm.addPrice.$dirty || hasCommit) &amp;&amp; logisticsForm.addPrice.$invalid) }" class="form-group">
+                    <input name="addPrice" type="text" ng-model="logistics.addPrice" required validate-float class="logistics-inline-input form-control">
+                    <div ng-show="((logisticsForm.addPrice.$dirty || hasCommit) &amp;&amp; logisticsForm.addPrice.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                  </div>
+                  <div class="form-group">元</div>
+                </div>
+                <div class="alert alert-info help-block"><i class="fa fa-info-circle"></i><span>除了指定地区城市外，其余地区（中国国内，且不包括港澳台）的运费采用“默认运费”</span></div>
+              </div>
+            </div>
+            <!--form.form-horizontal(name="regionForm", novalidate)-->
+            <div class="form-group">
+              <label class="col-sm-4 control-label">∗ 指定城市运费:</label>
+              <div class="col-sm-20">
+                <table class="table table-condensed table-hover">
+                  <thead>
+                    <tr>
+                      <th class="col-sm-9">运送到</th>
+                      <th class="col-sm-3">首重（kg）</th>
+                      <th class="col-sm-3"> 收费（元）</th>
+                      <th class="col-sm-3"> 续重（kg）</th>
+                      <th class="col-sm-3"> 续费（元）</th>
+                      <th class="col-sm-3"> 操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="region in regions" ng-form="regionForm">
+                      <td>
+                        <div ng-class="{ 'has-error': ((regionForm.provinces.$dirty || hasCommit) &amp;&amp; regionForm.provinces.$invalid)}"><span ng-show="!region.provinces.length">未选择省份</span><span ng-show="region.provinces.length" ng-repeat="province in region.provinces" class="pull-left">{{_provinceArray[province]}}<span ng-if="!$last">,</span></span>
+                          <input name="provinces" type="hidden" ng-model="region.provinces" validate-array-required="region.provinces">
+                          <button provinces="stateArray" selectedprovinces="region.provinces" regions="regions" class="btn btn-defalut pull-right">选择省份</button>
+                          <div ng-show="((regionForm.provinces.$dirty || hasCommit) &amp;&amp; regionForm.provinces.$invalid)" class="help-block"><span>请至少选择一个省份</span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div ng-class="{ 'has-error': ((regionForm.firstValue.$dirty || hasCommit) &amp;&amp; regionForm.firstValue.$invalid)}">
+                          <input name="firstValue" type="text" ng-model="region.firstValue" required validate-float class="form-control">
+                          <div ng-show="((regionForm.firstValue.$dirty || hasCommit) &amp;&amp; regionForm.firstValue.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div ng-class="{ 'has-error': ((regionForm.firstPrice.$dirty || hasCommit) &amp;&amp; regionForm.firstPrice.$invalid)}">
+                          <input name="firstPrice" type="text" ng-model="region.firstPrice" required validate-float class="form-control">
+                          <div ng-show="((regionForm.firstPrice.$dirty || hasCommit) &amp;&amp; regionForm.firstPrice.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div ng-class="{ 'has-error': ((regionForm.addValue.$dirty || hasCommit) &amp;&amp; regionForm.addValue.$invalid)}">
+                          <input name="addValue" type="text" ng-model="region.addValue" required validate-float class="form-control">
+                          <div ng-show="((regionForm.addValue.$dirty || hasCommit) &amp;&amp; regionForm.addValue.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <div ng-class="{ 'has-error': ((regionForm.addPrice.$dirty || hasCommit) &amp;&amp; regionForm.addPrice.$invalid)}">
+                          <input name="addPrice" type="text" ng-model="region.addPrice" required validate-float class="form-control">
+                          <div ng-show="((regionForm.addPrice.$dirty || hasCommit) &amp;&amp; regionForm.addPrice.$invalid)" class="help-block"><span>请输入非负数</span></div>
+                        </div>
+                      </td>
+                      <td>
+                        <button ng-click="regionsDelete($index)" class="btn btn-danger">-</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button ng-click="addRegion()" class="btn btn-primary"><span class="fa fa-plus-circle"></span>添加一个指定城市运费</button>
+              </div>
+            </div>
+            <!-- /.form-group-->
+            <div class="row">
+              <div class="col-lg-4 col-sm-offset-19"><a id="submitBtn" ng-click="submitForm(true)" data-loading-text="提交中，请稍候" class="pull-right btn-lg btn btn-primary"><span class="glyphicon glyphicon-save"></span><span>&nbsp; 保   存</span></a></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

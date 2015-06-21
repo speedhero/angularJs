@@ -1,0 +1,50 @@
+<div id="refundDetail">
+    <div class="row">
+        <ol class="breadcrumb">
+            当前位置：
+            <li><a href="" ng-click="backToList()"><span class="fa fa-arrow-circle-left"></span>&nbsp;返回售后列表</a></li>
+            <li class="active">{{refundType | refundType}}详情</li>
+        </ol>
+    </div>
+
+    <div id="status" class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>售后编号：{{refund.returnNo}}    </strong>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div id="progressBar" class="col-lg-24">
+                        <progressBar config="progressBar"></progressBar>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="handle" class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>处理信息</strong></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-18">
+                        <div ng-include="handleTemplate"></div>
+                    </div>
+                   <!--  <div ng-if="timeCounter.enable" class="col-lg-6">
+                        <timecounter config="timeCounter"></timecounter>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="info" class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>售后信息</strong></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-24">
+                        <div ng-include="template.refundInfoTemplate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

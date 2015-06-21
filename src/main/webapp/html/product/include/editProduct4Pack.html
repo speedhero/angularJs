@@ -1,0 +1,27 @@
+<div class="form-group"
+     ng-class="{ 'has-error': (packAfterSaleForm.packInfo.$dirty || hasCommit) && packAfterSaleForm.packInfo.$invalid }">
+    <label for="packInfo" class="col-sm-4 control-label">&lowast; 包装信息:</label>
+
+    <div class="col-sm-20">
+        <textarea class="form-control" rows="3" ng-model="product.packInfo" name="packInfo"
+                  placeholder="请输入包装信息"
+                  ng-maxlength="300" required></textarea>
+
+        <div class="help-block"
+             ng-show="(packAfterSaleForm.packInfo.$dirty || hasCommit) && packAfterSaleForm.packInfo.$invalid">
+            <span ng-show="packAfterSaleForm.packInfo.$error.required">
+                包装信息必填
+            </span>
+            <span ng-show="packAfterSaleForm.packInfo.$error.maxlength">
+                包装信息不能超过300个字符
+            </span>
+        </div>
+
+        <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span>包装信息,例如'灯泡*2 灯架*1 底座*1
+            灯罩*1 保修卡*1 说明书*1'
+        </div>
+
+    </div>
+</div>
+<!-- /.form-group -->
+

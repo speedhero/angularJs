@@ -1,0 +1,25 @@
+<div class="panel panel-default" ng-repeat="sku in roPro.skus">
+    <div class="panel-heading">
+        商品图片
+        <span ng-repeat="spec in specs | filter:isSpecChecked">
+            &nbsp;{{spec.name}} : {{getOptionRealName(sku.specs[spec.id+''])}}
+        </span>
+    </div>
+    <div class="panel-body">
+        <div  class="row" ng-show="sku.images.length != 0">
+            <div class="col-sm-4" ng-repeat="image in sku.images">
+                <div class="panel panel-default panel-custom">
+                    <div class="panel-body text-center">
+                        <img width="150" height="150" border="0" ng-src="{{getSkuImageUrl(image.url)}}">
+                    </div>
+                    <!-- /.panel-heading  -->
+                </div>
+                <!-- /.panel  -->
+            </div>
+            <!-- /.col-sm-4  -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->

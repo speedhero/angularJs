@@ -1,0 +1,26 @@
+<form class="form-horizontal" role="form" id="basicForm" name="basicForm">
+    <div class="panel panel-default panel-undertab">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-24">
+                    <!-- 基本信息 -->
+                    <div ng-include="templates.basicInfoSection4ViewMode"/>
+                    <!-- 商品属性 -->
+                    <div ng-include="templates.attributeSection4ViewMode"/>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-19">
+                </div>
+                <div class="col-lg-4">
+                    <a ng-click="editBasic()" class="btn btn-primary btn-lg btn-block" ><span class="glyphicon glyphicon-pencil"></span>&nbsp; 编   辑
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
